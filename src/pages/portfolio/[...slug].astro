@@ -1,0 +1,481 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SEO from '../../components/SEO.astro';
+import BeforeAfterSlider from '../../components/BeforeAfterSlider.astro';
+import { getCollection } from 'astro:content';
+import type { InferGetStaticPropsType } from 'astro';
+
+export const getStaticPaths = async () => {
+  const entries = (await getCollection('portfolio')).sort(
+    (a, b) => b.data.completed_date.getTime() - a.data.completed_date.getTime()
+  );
+  return entries.map((entry, i) => ({
+    params: { slug: entry.slug },
+    props: {
+      entry,
+      prevEntry: entries[i + 1] ?? null,
+      nextEntry: entries[i - 1] ?? null,
+    },
+  }));
+};
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { entry, prevEntry, nextEntry } = Astro.props;
+const { Content } = await entry.render();
+
+const {
+  title,
+  year,
+  make,
+  model,
+  era,
+  services,
+  hero,
+  before,
+  gallery,
+  description,
+  color_name,
+  color_formula,
+  paint_system,
+  duration_months,
+  completed_date,
+} = entry.data;
+
+const displayTitle  = title ?? `${year} ${make} ${model}`;
+const completedYear = completed_date.getFullYear();
+
+// JSON-LD CreativeWork
+const SITE_URL = Astro.site?.href ?? 'https://alikatkustomz.com/';
+const canonicalURL = new URL(`/portfolio/${entry.slug}`, SITE_URL).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: displayTitle,
+  description,
+  url: canonicalURL,
+  image: hero.startsWith('http') ? hero : new URL(hero, SITE_URL).href,
+  dateCreated: completed_date.toISOString().split('T')[0],
+  creator: {
+    '@type': 'AutoBodyShop',
+    name: 'Ali Kat Kustomz',
+    url: SITE_URL,
+  },
+  about: {
+    '@type': 'Car',
+    name: displayTitle,
+    vehicleModelDate: String(year),
+    brand: { '@type': 'Brand', name: make },
+    model,
+  },
+  ...(color_name ? { color: color_name } : {}),
+};
+---
+
+<Layout title={displayTitle}>
+  <SEO
+    slot="head"
+    title={displayTitle}
+    description={description}
+    image={hero}
+    canonicalURL={canonicalURL}
+    type="article"
+  />
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Full-bleed hero -->
+  <div class="relative h-[55vh] min-h-72 max-h-[640px] overflow-hidden bg-bg">
+    <img
+      src={hero}
+      alt={displayTitle}
+      class="absolute inset-0 w-full h-full object-cover"
+      fetchpriority="high"
+      decoding="sync"
+      loading="eager"
+      width="1600"
+      height="900"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent"></div>
+
+    <!-- Title overlay -->
+    <div class="absolute bottom-0 left-0 right-0 max-w-7xl mx-auto px-6 pb-10">
+      <p class="text-xs uppercase tracking-[0.3em] text-accent mb-2">{year} · {make} · {era}</p>
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-text leading-tight">
+        {displayTitle}
+      </h1>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="max-w-7xl mx-auto px-6 py-12 lg:py-16">
+    <div class="lg:grid lg:grid-cols-[1fr_320px] lg:gap-16 xl:gap-24">
+
+      <!-- ── Main content ────────────────────────────────────────────────── -->
+      <div>
+
+        <!-- Description lead -->
+        <p class="font-serif text-xl text-text/80 leading-relaxed mb-10 border-l-2 border-accent pl-6">
+          {description}
+        </p>
+
+        <!-- Before/After slider (if before image provided) -->
+        {before && (
+          <section class="mb-12" aria-label="Before and after comparison">
+            <h2 class="text-xs uppercase tracking-[0.25em] text-muted mb-4">Before &amp; After</h2>
+            <BeforeAfterSlider
+              before={before}
+              after={hero}
+              altBefore={`${displayTitle} — before restoration`}
+              altAfter={`${displayTitle} — after restoration`}
+            />
+          </section>
+        )}
+
+        <!-- Markdown body -->
+        <div class="prose prose-invert prose-p:text-muted prose-headings:font-serif prose-headings:text-text prose-headings:font-normal prose-a:text-accent prose-strong:text-text max-w-none mb-12">
+          <Content />
+        </div>
+
+        <!-- Gallery -->
+        {gallery && gallery.length > 0 && (
+          <section aria-label="Project gallery" class="mb-12">
+            <h2 class="text-xs uppercase tracking-[0.25em] text-muted mb-6">Gallery</h2>
+
+            <div
+              class="columns-1 sm:columns-2 gap-4"
+              id="gallery-grid"
+            >
+              {gallery.map((img, i) => (
+                <figure class="break-inside-avoid mb-4">
+                  <button
+                    class="group block w-full overflow-hidden bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    aria-label={img.caption ?? `Gallery image ${i + 1} of ${gallery.length} — open full size`}
+                    data-gallery-index={i}
+                    data-gallery-src={img.src}
+                    data-gallery-caption={img.caption ?? ''}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.caption ?? `${displayTitle} — photo ${i + 1}`}
+                      class="w-full object-cover transition-all duration-500 group-hover:scale-[1.03] group-hover:brightness-110"
+                      loading="lazy"
+                      decoding="async"
+                      width="800"
+                      height="600"
+                    />
+                  </button>
+                  {img.caption && (
+                    <figcaption class="mt-2 text-xs text-muted leading-snug px-1">
+                      {img.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
+      </div>
+
+      <!-- ── Sidebar ─────────────────────────────────────────────────────── -->
+      <aside class="mt-10 lg:mt-0">
+        <div class="lg:sticky lg:top-28 space-y-8">
+
+          <!-- Project metadata -->
+          <div class="bg-surface border border-bg p-6 space-y-5">
+            <h2 class="text-xs uppercase tracking-[0.25em] text-muted border-b border-bg pb-3">
+              Project Details
+            </h2>
+
+            <dl class="space-y-4 text-sm">
+              <div class="flex justify-between gap-4">
+                <dt class="text-muted shrink-0">Vehicle</dt>
+                <dd class="text-text text-right">{year} {make} {model}</dd>
+              </div>
+              <div class="flex justify-between gap-4">
+                <dt class="text-muted shrink-0">Era</dt>
+                <dd class="text-text">{era}</dd>
+              </div>
+              {duration_months && (
+                <div class="flex justify-between gap-4">
+                  <dt class="text-muted shrink-0">Duration</dt>
+                  <dd class="text-text">{duration_months} month{duration_months === 1 ? '' : 's'}</dd>
+                </div>
+              )}
+              <div class="flex justify-between gap-4">
+                <dt class="text-muted shrink-0">Completed</dt>
+                <dd class="text-text">{completedYear}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Services -->
+          <div class="bg-surface border border-bg p-6">
+            <h2 class="text-xs uppercase tracking-[0.25em] text-muted border-b border-bg pb-3 mb-4">
+              Services Performed
+            </h2>
+            <ul class="space-y-2">
+              {services.map((s) => (
+                <li class="flex items-start gap-2 text-sm text-text">
+                  <span class="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true"></span>
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Paint spec -->
+          {(color_name || paint_system || color_formula) && (
+            <div class="bg-surface border border-bg p-6">
+              <h2 class="text-xs uppercase tracking-[0.25em] text-muted border-b border-bg pb-3 mb-4">
+                Paint Specification
+              </h2>
+              <dl class="space-y-4 text-sm">
+                {color_name && (
+                  <div>
+                    <dt class="text-muted mb-0.5">Colour</dt>
+                    <dd class="text-text font-medium">{color_name}</dd>
+                  </div>
+                )}
+                {paint_system && (
+                  <div>
+                    <dt class="text-muted mb-0.5">System</dt>
+                    <dd class="text-text">{paint_system}</dd>
+                  </div>
+                )}
+                {color_formula && (
+                  <div>
+                    <dt class="text-muted mb-0.5">Formula</dt>
+                    <dd class="text-text font-mono text-xs leading-relaxed break-all">{color_formula}</dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+          )}
+
+          <!-- CTA -->
+          <div class="bg-accent/10 border border-accent/20 p-6 text-center">
+            <p class="text-sm text-text mb-4 leading-relaxed">
+              Interested in work like this for your car?
+            </p>
+            <a
+              href="/contact"
+              class="inline-block w-full text-center text-sm uppercase tracking-widest bg-accent text-text px-5 py-3 hover:bg-accent/80 transition-colors"
+            >
+              Request a Quote
+            </a>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Prev / Next navigation -->
+  <nav
+    class="border-t border-surface"
+    aria-label="Other projects"
+  >
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {prevEntry ? (
+        <a
+          href={`/portfolio/${prevEntry.slug}`}
+          class="group flex items-center gap-4 text-left hover:text-accent transition-colors"
+          aria-label={`Previous project: ${prevEntry.data.title ?? `${prevEntry.data.year} ${prevEntry.data.make} ${prevEntry.data.model}`}`}
+        >
+          <span class="text-2xl text-muted group-hover:text-accent transition-colors" aria-hidden="true">←</span>
+          <span>
+            <span class="block text-xs uppercase tracking-widest text-muted mb-0.5">Previous</span>
+            <span class="block font-serif text-lg text-text group-hover:text-accent transition-colors">
+              {prevEntry.data.title ?? `${prevEntry.data.year} ${prevEntry.data.make} ${prevEntry.data.model}`}
+            </span>
+          </span>
+        </a>
+      ) : (
+        <div aria-hidden="true"></div>
+      )}
+
+      {nextEntry ? (
+        <a
+          href={`/portfolio/${nextEntry.slug}`}
+          class="group flex items-center gap-4 text-right sm:justify-end hover:text-accent transition-colors"
+          aria-label={`Next project: ${nextEntry.data.title ?? `${nextEntry.data.year} ${nextEntry.data.make} ${nextEntry.data.model}`}`}
+        >
+          <span>
+            <span class="block text-xs uppercase tracking-widest text-muted mb-0.5">Next</span>
+            <span class="block font-serif text-lg text-text group-hover:text-accent transition-colors">
+              {nextEntry.data.title ?? `${nextEntry.data.year} ${nextEntry.data.make} ${nextEntry.data.model}`}
+            </span>
+          </span>
+          <span class="text-2xl text-muted group-hover:text-accent transition-colors" aria-hidden="true">→</span>
+        </a>
+      ) : (
+        <div aria-hidden="true"></div>
+      )}
+    </div>
+  </nav>
+
+  <!-- Back to portfolio -->
+  <div class="max-w-7xl mx-auto px-6 pb-16 text-center">
+    <a
+      href="/portfolio"
+      class="text-xs uppercase tracking-widest text-muted hover:text-accent transition-colors"
+    >
+      ← All Projects
+    </a>
+  </div>
+
+</Layout>
+
+<!-- ── Lightbox dialog ──────────────────────────────────────────────────────── -->
+<dialog
+  id="lightbox"
+  class="fixed inset-0 w-full h-full max-w-none max-h-none m-0 p-0 bg-transparent"
+  aria-label="Image lightbox"
+  aria-modal="true"
+>
+  <div class="flex flex-col items-center justify-center w-full h-full bg-bg/95 backdrop-blur-md p-4">
+
+    <!-- Close button -->
+    <button
+      id="lb-close"
+      class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center text-text hover:text-accent transition-colors"
+      aria-label="Close lightbox"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Prev button -->
+    <button
+      id="lb-prev"
+      class="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center text-text hover:text-accent transition-colors"
+      aria-label="Previous image"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M13 4L7 10l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Main image -->
+    <figure class="flex flex-col items-center max-w-5xl w-full">
+      <img
+        id="lb-img"
+        src=""
+        alt=""
+        class="max-h-[75vh] w-auto max-w-full object-contain"
+      />
+      <figcaption
+        id="lb-caption"
+        class="mt-4 text-sm text-muted text-center max-w-xl"
+      ></figcaption>
+    </figure>
+
+    <!-- Counter -->
+    <p id="lb-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-muted tracking-widest"></p>
+
+    <!-- Next button -->
+    <button
+      id="lb-next"
+      class="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center text-text hover:text-accent transition-colors"
+      aria-label="Next image"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M7 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+  </div>
+</dialog>
+
+<style>
+  /* Prose overrides that Tailwind typography can't do via config alone */
+  .prose h2 {
+    @apply text-2xl mt-10 mb-4;
+  }
+  .prose h3 {
+    @apply text-xl mt-8 mb-3;
+  }
+  .prose p {
+    @apply mb-5;
+  }
+  .prose ul {
+    @apply pl-5 space-y-1;
+  }
+  .prose ul li::marker {
+    color: theme('colors.accent');
+  }
+
+  /* Native dialog reset */
+  dialog {
+    border: none;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+  }
+  dialog::backdrop {
+    background: rgba(15, 15, 16, 0.85);
+    backdrop-filter: blur(4px);
+  }
+</style>
+
+<script>
+  // ── Gallery buttons → lightbox ─────────────────────────────────────────────
+  const galleryBtns = document.querySelectorAll<HTMLButtonElement>('[data-gallery-index]');
+  const lightbox    = document.getElementById('lightbox') as HTMLDialogElement;
+  const lbImg       = document.getElementById('lb-img')     as HTMLImageElement;
+  const lbCaption   = document.getElementById('lb-caption') as HTMLElement;
+  const lbCounter   = document.getElementById('lb-counter') as HTMLElement;
+  const lbClose     = document.getElementById('lb-close')   as HTMLButtonElement;
+  const lbPrev      = document.getElementById('lb-prev')    as HTMLButtonElement;
+  const lbNext      = document.getElementById('lb-next')    as HTMLButtonElement;
+
+  // Build gallery manifest from DOM
+  const gallery = Array.from(galleryBtns).map((btn) => ({
+    src:     btn.dataset.gallerySrc     ?? '',
+    caption: btn.dataset.galleryCaption ?? '',
+  }));
+
+  let currentIndex = 0;
+
+  function showSlide(index: number) {
+    currentIndex = (index + gallery.length) % gallery.length;
+    const item   = gallery[currentIndex];
+    lbImg.src        = item.src;
+    lbImg.alt        = item.caption || `Image ${currentIndex + 1}`;
+    lbCaption.textContent = item.caption;
+    lbCounter.textContent = `${currentIndex + 1} / ${gallery.length}`;
+    lbPrev.hidden = gallery.length <= 1;
+    lbNext.hidden = gallery.length <= 1;
+  }
+
+  function openLightbox(index: number) {
+    showSlide(index);
+    lightbox.showModal();
+    lbClose.focus();
+  }
+
+  galleryBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      openLightbox(Number(btn.dataset.galleryIndex));
+    });
+  });
+
+  lbClose.addEventListener('click', () => lightbox.close());
+  lbPrev.addEventListener('click',  () => showSlide(currentIndex - 1));
+  lbNext.addEventListener('click',  () => showSlide(currentIndex + 1));
+
+  // Click outside image area closes dialog
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.close();
+  });
+
+  // Keyboard: left/right arrows
+  lightbox.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); showSlide(currentIndex - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); showSlide(currentIndex + 1); }
+    // Escape is handled natively by <dialog>
+  });
+</script>

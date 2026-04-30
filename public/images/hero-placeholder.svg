@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="60%" r="70%">
+      <stop offset="0%" stop-color="#2a2a2c"/>
+      <stop offset="100%" stop-color="#0F0F10"/>
+    </radialGradient>
+    <!-- Subtle grain texture via feTurbulence -->
+    <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" mode="overlay" result="blend"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <!-- Stylised car silhouette (low slung coupe) -->
+  <g opacity="0.12" fill="#9C9893">
+    <!-- Body -->
+    <ellipse cx="960" cy="700" rx="520" ry="28"/>
+    <path d="M440 700 Q460 640 560 600 Q680 545 780 535 Q850 510 960 508 Q1080 508 1150 535 Q1265 545 1380 600 Q1480 640 1480 700 Z"/>
+    <!-- Greenhouse (windows area) -->
+    <path d="M640 600 Q700 530 820 510 Q900 495 960 493 Q1030 493 1110 510 Q1240 530 1290 600 Z" fill="#1A1A1C" opacity="0.8"/>
+    <!-- Wheels -->
+    <circle cx="640" cy="700" r="72" fill="#0F0F10"/>
+    <circle cx="640" cy="700" r="48" fill="none" stroke="#9C9893" stroke-width="8"/>
+    <circle cx="1280" cy="700" r="72" fill="#0F0F10"/>
+    <circle cx="1280" cy="700" r="48" fill="none" stroke="#9C9893" stroke-width="8"/>
+  </g>
+  <!-- Horizontal rule accent -->
+  <rect x="880" y="440" width="160" height="1" fill="#B8392E" opacity="0.6"/>
+  <!-- Placeholder label -->
+  <text x="960" y="820" font-family="Georgia, serif" font-size="16" fill="#8A8680" text-anchor="middle" opacity="0.5">hero-placeholder.svg — replace with real image</text>
+</svg>

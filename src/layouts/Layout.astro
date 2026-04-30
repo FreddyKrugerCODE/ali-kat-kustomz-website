@@ -1,0 +1,83 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SEO from '../components/SEO.astro';
+import '@fontsource-variable/playfair-display';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  /**
+   * When provided, Layout renders <SEO> internally.
+   * Omit when the page supplies its own <SEO slot="head"> child.
+   */
+  description?: string;
+  /** Path to the OG image, relative to /public or absolute URL */
+  image?: string;
+  type?: 'website' | 'article';
+  /** Optional override for the canonical URL */
+  canonicalURL?: string;
+}
+
+const { title, description, image, type, canonicalURL } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+
+    <!-- Preconnect is not needed — fonts are self-hosted via @fontsource -->
+
+    <!-- SEO, OG, JSON-LD — rendered only when description is passed to Layout -->
+    {description !== undefined && (
+      <SEO {title} description={description} {image} {type} {canonicalURL} />
+    )}
+
+    <!--
+      Extra head content (page-level JSON-LD overrides, etc.).
+      Usage: <Layout ...><Fragment slot="head">…</Fragment></Layout>
+    -->
+    <slot name="head" />
+
+    <!--
+      Without JS, [data-fade] elements would stay invisible (opacity:0).
+      This noscript rule ensures full visibility for non-JS environments.
+    -->
+    <noscript>
+      <style>[data-fade],[data-fade-stagger]>*{opacity:1!important;transform:none!important}</style>
+    </noscript>
+  </head>
+
+  <body class="min-h-screen bg-bg text-text antialiased">
+
+    <!-- Skip-to-content: becomes visible on keyboard focus (see global.css) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <Nav />
+
+    <!--
+      tabindex="-1" lets the skip link programmatically focus <main>
+      without adding it to the natural tab order.
+      outline-none removes the browser's default focus ring on the element
+      itself (the skip link already handles visual focus).
+    -->
+    <main
+      id="main-content"
+      tabindex="-1"
+      class="pt-16 outline-none"
+    >
+      <slot />
+    </main>
+
+    <Footer />
+
+  </body>
+</html>

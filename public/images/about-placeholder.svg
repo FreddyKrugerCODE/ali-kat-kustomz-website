@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <radialGradient id="ag" cx="40%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#222224"/>
+      <stop offset="100%" stop-color="#0F0F10"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#ag)"/>
+  <!-- Workshop accent lines -->
+  <line x1="80" y1="0" x2="80" y2="1000" stroke="#1A1A1C" stroke-width="1"/>
+  <line x1="160" y1="0" x2="160" y2="1000" stroke="#1A1A1C" stroke-width="1"/>
+  <line x1="240" y1="0" x2="240" y2="1000" stroke="#1A1A1C" stroke-width="1"/>
+  <line x1="320" y1="0" x2="320" y2="1000" stroke="#1A1A1C" stroke-width="1"/>
+  <line x1="400" y1="0" x2="400" y2="1000" stroke="#1A1A1C" stroke-width="1"/>
+  <line x1="480" y1="0" x2="480" y2="1000" stroke="#1A1A1C" stroke-width="1"/>
+  <line x1="560" y1="0" x2="560" y2="1000" stroke="#1A1A1C" stroke-width="1"/>
+  <line x1="640" y1="0" x2="640" y2="1000" stroke="#1A1A1C" stroke-width="1"/>
+  <line x1="720" y1="0" x2="720" y2="1000" stroke="#1A1A1C" stroke-width="1"/>
+  <!-- Accent line -->
+  <rect x="80" y="480" width="2" height="80" fill="#B8392E" opacity="0.5"/>
+  <text x="400" y="520" font-family="Georgia, serif" font-size="14" fill="#8A8680" text-anchor="middle" opacity="0.35">about photo — replace with shop image</text>
+</svg>

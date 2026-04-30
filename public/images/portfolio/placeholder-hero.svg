@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <radialGradient id="pg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#242426"/>
+      <stop offset="100%" stop-color="#0F0F10"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#pg)"/>
+  <!-- Simple car icon -->
+  <g opacity="0.18" fill="#9C9893">
+    <path d="M150 350 Q165 310 220 290 Q290 265 400 262 Q510 262 580 290 Q635 310 650 350 Z"/>
+    <path d="M240 292 Q280 255 360 248 Q400 244 440 248 Q520 255 560 292 Z" fill="#1A1A1C" opacity="0.9"/>
+    <ellipse cx="400" cy="353" rx="260" ry="14"/>
+    <circle cx="230" cy="353" r="38" fill="#0F0F10"/>
+    <circle cx="230" cy="353" r="25" fill="none" stroke="#9C9893" stroke-width="4"/>
+    <circle cx="570" cy="353" r="38" fill="#0F0F10"/>
+    <circle cx="570" cy="353" r="25" fill="none" stroke="#9C9893" stroke-width="4"/>
+  </g>
+  <text x="400" y="430" font-family="Georgia, serif" font-size="12" fill="#8A8680" text-anchor="middle" opacity="0.4">placeholder — replace with project photo</text>
+</svg>

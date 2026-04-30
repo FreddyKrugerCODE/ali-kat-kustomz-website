@@ -1,0 +1,371 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SEO from '../components/SEO.astro';
+---
+
+<Layout title="Contact & Quote Request">
+  <SEO
+    slot="head"
+    title="Contact & Quote Request"
+    description="Request a quote, ask a question, or schedule a shop visit. We respond to every inquiry within two business days."
+  />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-16 px-6 max-w-7xl mx-auto">
+    <div class="max-w-xl" data-fade>
+      <p class="text-xs uppercase tracking-[0.3em] text-accent mb-4">Get in Touch</p>
+      <h1 class="font-serif text-5xl md:text-6xl text-text leading-tight mb-6">
+        Tell us about your car.
+      </h1>
+      <p class="text-muted text-lg leading-relaxed">
+        The more detail you can share, the more useful our first response will be.
+        Photographs are welcome — front, sides, rear, and any areas of specific concern.
+        We respond to every inquiry within two business days.
+      </p>
+    </div>
+  </section>
+
+  <!-- Two-column body -->
+  <section class="max-w-7xl mx-auto px-6 pb-24">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-16 xl:gap-24">
+
+      <!-- ── Form ──────────────────────────────────────────────────────────── -->
+      <div>
+        <form
+          name="quote-request"
+          method="POST"
+          action="/thank-you/"
+          enctype="multipart/form-data"
+          data-netlify="true"
+          class="space-y-8"
+        >
+          <!-- Netlify hidden fields -->
+          <input type="hidden" name="form-name" value="quote-request" />
+          <!-- Honeypot -->
+          <p class="hidden" aria-hidden="true">
+            <label>Don't fill this out: <input name="bot-field" /></label>
+          </p>
+
+          <!-- Name + Email -->
+          <fieldset class="grid grid-cols-1 sm:grid-cols-2 gap-6 border-none p-0">
+            <legend class="sr-only">Your contact information</legend>
+            <div>
+              <label for="name" class="block text-xs uppercase tracking-widest text-muted mb-2">
+                Your Name <span class="text-accent" aria-label="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-xs uppercase tracking-widest text-muted mb-2">
+                Email <span class="text-accent" aria-label="required">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors"
+              />
+            </div>
+          </fieldset>
+
+          <!-- Phone -->
+          <div>
+            <label for="phone" class="block text-xs uppercase tracking-widest text-muted mb-2">
+              Phone <span class="text-muted/50">(optional)</span>
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              autocomplete="tel"
+              class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors"
+            />
+          </div>
+
+          <!-- Vehicle -->
+          <fieldset class="border-none p-0">
+            <legend class="block text-xs uppercase tracking-widest text-muted mb-4">
+              Vehicle <span class="text-accent" aria-label="required">*</span>
+            </legend>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div>
+                <label for="vehicle_year" class="block text-xs text-muted/70 mb-2">Year</label>
+                <input
+                  type="number"
+                  id="vehicle_year"
+                  name="vehicle_year"
+                  required
+                  min="1900"
+                  max="2030"
+                  placeholder="e.g. 1967"
+                  class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-muted/30"
+                />
+              </div>
+              <div>
+                <label for="vehicle_make" class="block text-xs text-muted/70 mb-2">Make</label>
+                <input
+                  type="text"
+                  id="vehicle_make"
+                  name="vehicle_make"
+                  required
+                  placeholder="e.g. Jaguar"
+                  class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-muted/30"
+                />
+              </div>
+              <div>
+                <label for="vehicle_model" class="block text-xs text-muted/70 mb-2">Model</label>
+                <input
+                  type="text"
+                  id="vehicle_model"
+                  name="vehicle_model"
+                  required
+                  placeholder="e.g. E-Type"
+                  class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-muted/30"
+                />
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Project type -->
+          <div>
+            <label for="project_type" class="block text-xs uppercase tracking-widest text-muted mb-2">
+              Project Type <span class="text-accent" aria-label="required">*</span>
+            </label>
+            <div class="relative">
+              <select
+                id="project_type"
+                name="project_type"
+                required
+                class="w-full appearance-none bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors pr-10"
+              >
+                <option value="" disabled selected>Select a service…</option>
+                <option value="Full restoration paint">Full restoration paint</option>
+                <option value="Color matching">Color matching</option>
+                <option value="Custom color">Custom color</option>
+                <option value="Spot repair">Spot repair</option>
+                <option value="Engine bay or chassis">Engine bay or chassis</option>
+                <option value="Pre-auction prep">Pre-auction prep</option>
+                <option value="Consultation">Consultation</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center" aria-hidden="true">
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none">
+                  <path d="M1 1l5 5 5-5" stroke="#8A8680" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div>
+            <label for="timeline" class="block text-xs uppercase tracking-widest text-muted mb-2">
+              Approximate Timeline
+            </label>
+            <div class="relative">
+              <select
+                id="timeline"
+                name="timeline"
+                class="w-full appearance-none bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors pr-10"
+              >
+                <option value="" selected>Select timeline…</option>
+                <option value="Ready now">Ready now</option>
+                <option value="Within 3 months">Within 3 months</option>
+                <option value="Within 6 months">Within 6 months</option>
+                <option value="Within a year">Within a year</option>
+                <option value="Just exploring">Just exploring</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center" aria-hidden="true">
+                <svg width="12" height="7" viewBox="0 0 12 7" fill="none">
+                  <path d="M1 1l5 5 5-5" stroke="#8A8680" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project description -->
+          <div>
+            <label for="message" class="block text-xs uppercase tracking-widest text-muted mb-2">
+              Tell Us About the Project <span class="text-accent" aria-label="required">*</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="6"
+              placeholder="Current condition, what you're hoping to achieve, any existing bodywork or paint history…"
+              class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors resize-none placeholder:text-muted/30"
+            ></textarea>
+          </div>
+
+          <!-- Photo upload -->
+          <div>
+            <label for="photos" class="block text-xs uppercase tracking-widest text-muted mb-2">
+              Photos <span class="text-muted/50">(optional — max 10 files)</span>
+            </label>
+            <p class="text-xs text-muted/60 mb-3">
+              Front, sides, rear, and any areas of specific concern. JPEG or PNG preferred.
+            </p>
+            <label
+              for="photos"
+              class="flex items-center gap-3 w-full border border-dashed border-surface text-muted px-4 py-4 text-sm cursor-pointer hover:border-accent/40 hover:text-text transition-colors group"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+                class="shrink-0 text-muted group-hover:text-accent transition-colors"
+              >
+                <path d="M10 3v10M5 8l5-5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <span id="file-label">Choose files or drag and drop</span>
+            </label>
+            <input
+              type="file"
+              id="photos"
+              name="photos"
+              multiple
+              accept="image/*"
+              class="sr-only"
+              aria-describedby="file-label"
+            />
+          </div>
+
+          <!-- Referral -->
+          <div>
+            <label for="referral" class="block text-xs uppercase tracking-widest text-muted mb-2">
+              How Did You Hear About Us? <span class="text-muted/50">(optional)</span>
+            </label>
+            <input
+              type="text"
+              id="referral"
+              name="referral"
+              placeholder="Word of mouth, Instagram, show, club…"
+              class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-muted/30"
+            />
+          </div>
+
+          <!-- Submit -->
+          <div class="pt-2">
+            <button
+              type="submit"
+              class="w-full sm:w-auto px-12 py-4 bg-accent text-text text-sm uppercase tracking-widest hover:bg-accent/80 active:scale-[0.98] transition-all"
+            >
+              Send Enquiry
+            </button>
+            <p class="mt-3 text-xs text-muted/60">
+              We respond to every inquiry within two business days.
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <!-- ── Sidebar ─────────────────────────────────────────────────────── -->
+      <aside class="mt-4 lg:mt-0">
+        <div class="lg:sticky lg:top-28 space-y-8">
+
+          <!-- Other ways to reach us -->
+          <div class="bg-surface border border-bg p-8">
+            <h2 class="text-xs uppercase tracking-[0.25em] text-muted border-b border-bg pb-4 mb-6">
+              Other Ways to Reach Us
+            </h2>
+            <address class="not-italic space-y-5">
+              <div>
+                <p class="text-xs uppercase tracking-widest text-muted mb-1">Phone</p>
+                <a
+                  href="tel:+15550000000"
+                  class="text-text hover:text-accent transition-colors text-sm"
+                  aria-label="Call us at 555 000 0000"
+                >
+                  (555) 000-0000
+                </a>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-widest text-muted mb-1">Email</p>
+                <a
+                  href="mailto:hello@alikatkustomz.com"
+                  class="text-text hover:text-accent transition-colors text-sm"
+                >
+                  hello@alikatkustomz.com
+                </a>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-widest text-muted mb-1">Shop Hours</p>
+                <p class="text-text text-sm">Mon–Fri: 8 am – 6 pm</p>
+                <p class="text-text text-sm">Sat: 9 am – 3 pm</p>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-widest text-muted mb-1">Address</p>
+                <p class="text-text text-sm">By appointment — contact us to arrange a visit.</p>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-widest text-muted mb-1">Instagram</p>
+                <a
+                  href="https://www.instagram.com/alikatkustomz"
+                  class="text-text hover:text-accent transition-colors text-sm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  @alikatkustomz
+                </a>
+              </div>
+            </address>
+          </div>
+
+          <!-- What happens next -->
+          <div class="bg-surface border border-bg p-8">
+            <h2 class="text-xs uppercase tracking-[0.25em] text-muted border-b border-bg pb-4 mb-6">
+              What Happens Next
+            </h2>
+            <ol class="space-y-5">
+              {[
+                "We’ll confirm receipt of your inquiry within one business day.",
+                "Within two business days, you’ll get a detailed response — usually with follow-up questions, sometimes with a starting estimate, and always with next steps.",
+                "For restoration projects, we’ll schedule either a shop visit or a video walk-through of the car.",
+                "Quotes are firm once we’ve inspected the vehicle in person.",
+              ].map((step, i) => (
+                <li class="flex gap-4">
+                  <span
+                    class="font-serif text-2xl text-text/20 font-bold leading-none shrink-0 mt-0.5"
+                    aria-hidden="true"
+                  >{i + 1}</span>
+                  <p class="text-sm text-muted leading-relaxed">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Update file upload label with selected filenames
+  const input = document.getElementById('photos') as HTMLInputElement;
+  const label = document.getElementById('file-label')!;
+
+  input?.addEventListener('change', () => {
+    const files = Array.from(input.files ?? []);
+    if (files.length === 0) {
+      label.textContent = 'Choose files or drag and drop';
+    } else if (files.length === 1) {
+      label.textContent = files[0].name;
+    } else {
+      label.textContent = `${files.length} files selected`;
+    }
+  });
+</script>

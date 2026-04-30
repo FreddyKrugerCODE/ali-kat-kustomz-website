@@ -1,0 +1,52 @@
+---
+interface Props {
+  headline: string;
+  subheadline: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const {
+  headline,
+  subheadline,
+  ctaLabel = 'View Portfolio',
+  ctaHref = '/portfolio',
+  secondaryLabel = 'Get a Quote',
+  secondaryHref = '/contact',
+} = Astro.props;
+---
+
+<section class="relative min-h-[92vh] flex items-center justify-center overflow-hidden">
+  <!-- Background gradient -->
+  <div class="absolute inset-0 bg-gradient-to-br from-bg via-surface to-bg opacity-90" />
+  <!-- Decorative accent line -->
+  <div class="absolute left-0 top-1/4 w-1 h-32 bg-accent" aria-hidden="true" />
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+    <p class="text-xs uppercase tracking-[0.3em] text-accent mb-6 font-sans">
+      Custom Automotive Paint &amp; Restoration
+    </p>
+    <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-text leading-[1.05] text-balance mb-6">
+      {headline}
+    </h1>
+    <p class="text-lg sm:text-xl text-muted max-w-2xl mx-auto leading-relaxed mb-10">
+      {subheadline}
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a
+        href={ctaHref}
+        class="px-8 py-3 bg-accent text-text font-sans text-sm uppercase tracking-widest hover:bg-accent/80 transition-colors"
+      >
+        {ctaLabel}
+      </a>
+      <a
+        href={secondaryHref}
+        class="px-8 py-3 border border-metal text-metal font-sans text-sm uppercase tracking-widest hover:border-text hover:text-text transition-colors"
+      >
+        {secondaryLabel}
+      </a>
+    </div>
+  </div>
+</section>

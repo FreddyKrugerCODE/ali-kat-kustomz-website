@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/)",
+      "Bash(curl -s -o /dev/null -w \"portfolio index: %{http_code}\\\\n\" http://localhost:4321/portfolio/)",
+      "Bash(curl -s -o /dev/null -w \"portfolio/1967-jaguar-etype: %{http_code}\\\\n\" http://localhost:4321/portfolio/1967-jaguar-etype)",
+      "Bash(curl -s -o /dev/null -w \"contact: %{http_code}\\\\n\" http://localhost:4321/contact)",
+      "Bash(pkill -f \"astro dev\")",
+      "Bash(curl -s -o /dev/null -w \"/ → %{http_code}\\\\n\" http://localhost:4321/)",
+      "Bash(curl -s -o /dev/null -w \"/portfolio → %{http_code}\\\\n\" http://localhost:4321/portfolio)",
+      "Bash(curl -s -o /dev/null -w \"/portfolio/1967-jaguar-etype → %{http_code}\\\\n\" http://localhost:4321/portfolio/1967-jaguar-etype)",
+      "Bash(curl -s -o /dev/null -w \"/contact → %{http_code}\\\\n\" http://localhost:4321/contact)",
+      "Bash(curl -s -o /dev/null -w \"/ → %{http_code}\\\\n\" http://localhost:4322/)",
+      "Bash(curl -s -o /dev/null -w \"/portfolio → %{http_code}\\\\n\" http://localhost:4322/portfolio)",
+      "Bash(curl -s -o /dev/null -w \"/portfolio/1967-jaguar-etype → %{http_code}\\\\n\" http://localhost:4322/portfolio/1967-jaguar-etype)",
+      "Bash(curl -s -o /dev/null -w \"/contact → %{http_code}\\\\n\" http://localhost:4322/contact)",
+      "Bash(curl -s http://localhost:4322/)",
+      "Bash(curl -s --no-progress-meter \"http://127.0.0.1:4322/\" -o /tmp/index.html)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s \"http://localhost:4322/\")",
+      "Bash(echo \"exit: $?\")",
+      "Bash(mkdir -p /tmp)",
+      "Bash(npm install *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/portfolio/)",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(npm show *)",
+      "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\);const v=JSON.parse\\(d\\);console.log\\('Latest versions:',v.slice\\(-5\\).join\\(', '\\)\\)\")",
+      "Bash(npm uninstall *)",
+      "Bash(npx astro *)",
+      "Bash(where npx *)",
+      "Bash(npx lighthouse *)",
+      "Bash(npx serve *)",
+      "Bash(node -e ' *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}

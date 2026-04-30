@@ -1,0 +1,145 @@
+---
+interface Props {
+  before: string;
+  after: string;
+  altBefore?: string;
+  altAfter?: string;
+}
+
+const { before, after, altBefore = 'Before', altAfter = 'After' } = Astro.props;
+const id = `ba-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<figure
+  class="relative select-none overflow-hidden bg-bg aspect-[4/3] w-full"
+  id={id}
+  aria-label="Before and after comparison"
+>
+  <!-- After image (full width, underneath) -->
+  <img
+    src={after}
+    alt={altAfter}
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="lazy"
+    decoding="async"
+    width="800"
+    height="600"
+  />
+
+  <!-- Before image (clipped to left portion) -->
+  <div
+    class="before-panel absolute inset-0 overflow-hidden"
+    style="clip-path: inset(0 50% 0 0);"
+  >
+    <img
+      src={before}
+      alt={altBefore}
+      class="w-full h-full object-cover"
+      loading="lazy"
+      decoding="async"
+      width="800"
+      height="600"
+    />
+    <!-- "Before" label -->
+    <span
+      class="absolute top-4 left-4 text-xs uppercase tracking-widest bg-bg/80 text-text px-3 py-1 pointer-events-none"
+      aria-hidden="true"
+    >Before</span>
+  </div>
+
+  <!-- "After" label -->
+  <span
+    class="absolute top-4 right-4 text-xs uppercase tracking-widest bg-bg/80 text-text px-3 py-1 pointer-events-none"
+    aria-hidden="true"
+  >After</span>
+
+  <!-- Divider line + handle -->
+  <div
+    class="divider pointer-events-none absolute inset-y-0 flex flex-col items-center"
+    style="left: 50%; transform: translateX(-50%);"
+  >
+    <div class="w-px bg-white/70 flex-1"></div>
+    <div
+      class="handle w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-lg shrink-0 -mt-px -mb-px"
+      aria-hidden="true"
+    >
+      <!-- Left/right chevrons -->
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M8 5l-4 5 4 5" stroke="#0F0F10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 5l4 5-4 5" stroke="#0F0F10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="w-px bg-white/70 flex-1"></div>
+  </div>
+
+  <!-- Accessible range input (keyboard control) -->
+  <label class="sr-only" for={`${id}-range`}>
+    Slide to compare before and after. Current position: 50%.
+  </label>
+  <input
+    id={`${id}-range`}
+    type="range"
+    min="0"
+    max="100"
+    value="50"
+    step="1"
+    class="ba-range absolute inset-0 w-full h-full opacity-0 cursor-col-resize"
+    aria-label="Before/after comparison slider"
+  />
+</figure>
+
+<style>
+  /* Prevent text selection while dragging */
+  figure:has(.ba-range:active) { cursor: col-resize; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .before-panel, .divider { transition: none !important; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[id^="ba-"]').forEach((fig) => {
+    const panel  = fig.querySelector<HTMLElement>('.before-panel')!;
+    const divider = fig.querySelector<HTMLElement>('.divider')!;
+    const range  = fig.querySelector<HTMLInputElement>('.ba-range')!;
+
+    function setPct(pct: number) {
+      const clamped = Math.max(0, Math.min(100, pct));
+      panel.style.clipPath  = `inset(0 ${100 - clamped}% 0 0)`;
+      divider.style.left    = `${clamped}%`;
+      range.value           = String(Math.round(clamped));
+      range.setAttribute('aria-valuenow', String(Math.round(clamped)));
+      range.setAttribute(
+        'aria-label',
+        `Before/after comparison slider. Current position: ${Math.round(clamped)}%.`
+      );
+    }
+
+    // Range input handles both keyboard and mouse natively
+    range.addEventListener('input', () => setPct(Number(range.value)));
+
+    // Pointer drag on the figure itself (mouse + touch)
+    let dragging = false;
+
+    fig.addEventListener('pointerdown', (e) => {
+      if ((e.target as HTMLElement).tagName === 'INPUT') return;
+      dragging = true;
+      fig.setPointerCapture(e.pointerId);
+      updateFromEvent(e);
+    });
+
+    fig.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      updateFromEvent(e);
+    });
+
+    fig.addEventListener('pointerup',   () => { dragging = false; });
+    fig.addEventListener('pointercancel', () => { dragging = false; });
+
+    function updateFromEvent(e: PointerEvent) {
+      const rect = fig.getBoundingClientRect();
+      const pct  = ((e.clientX - rect.left) / rect.width) * 100;
+      setPct(pct);
+    }
+  });
+</script>

@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Custom properties ─────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --color-bg:      #0F0F10;
+    --color-surface: #1A1A1C;
+    --color-text:    #E8E6E1;
+    --color-muted:   #8A8680;
+    --color-accent:  #B8392E;
+    --color-metal:   #9C9893;
+
+    /* Fluid type scale (clamp) used ad-hoc via arbitrary values */
+    --step--1: clamp(0.833rem, 0.75vw + 0.7rem, 0.9rem);
+    --step-0:  clamp(1rem,     0.9vw + 0.8rem,  1.125rem);
+    --step-1:  clamp(1.2rem,   1.1vw + 0.9rem,  1.5rem);
+    --step-2:  clamp(1.44rem,  1.5vw + 1rem,    2rem);
+    --step-3:  clamp(1.73rem,  2vw   + 1rem,    2.5rem);
+    --step-4:  clamp(2.07rem,  3vw   + 1rem,    3.5rem);
+    --step-5:  clamp(2.49rem,  4vw   + 1rem,    4.5rem);
+  }
+}
+
+/* ─── Base resets ───────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    @apply bg-bg text-text font-sans;
+    /* Tailwind's preflight already sets box-sizing: border-box */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Keep scroll position after skip-link jump without layout jank */
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen;
+    /* Prevent content shift when a scrollbar appears/disappears */
+    scrollbar-gutter: stable;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+    text-wrap: balance;
+  }
+
+  p, li {
+    text-wrap: pretty;
+  }
+
+  img, video, svg {
+    @apply block max-w-full;
+  }
+
+  /* Inherit font in form elements (browser default overrides Tailwind preflight) */
+  input, button, textarea, select {
+    font: inherit;
+  }
+}
+
+/* ─── Focus-visible ring ────────────────────────────────────────────────── */
+@layer base {
+  /*
+   * Remove default :focus outline everywhere, then restore ONLY for
+   * keyboard navigation via :focus-visible. This means mouse clicks
+   * won't show rings, but Tab / keyboard will.
+   */
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg;
+    border-radius: 1px;
+  }
+}
+
+/* ─── Text selection ────────────────────────────────────────────────────── */
+@layer base {
+  ::selection {
+    background-color: theme('colors.accent');
+    color: theme('colors.text');
+  }
+}
+
+/* ─── Skip-to-content link ──────────────────────────────────────────────── */
+@layer components {
+  .skip-link {
+    @apply sr-only;
+
+    &:focus-visible {
+      @apply not-sr-only fixed top-4 left-4 z-[200]
+             px-5 py-2
+             bg-accent text-text
+             text-sm font-sans tracking-wider
+             ring-2 ring-text ring-offset-2 ring-offset-accent;
+      clip: auto;
+      clip-path: none;
+    }
+  }
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Utility ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Prevent scroll when mobile nav overlay is open */
+  .nav-open {
+    overflow: hidden;
+  }
+}
+
+/* ─── Scroll-reveal animation ───────────────────────────────────────────── */
+/*
+ * [data-fade] elements start invisible and slide up slightly.
+ * JavaScript adds .is-visible when they enter the viewport.
+ * The noscript rule in Layout.astro makes them visible without JS.
+ */
+[data-fade] {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+}
+
+[data-fade].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger: each direct child after the first gets an incremental delay */
+[data-fade-stagger] > *   { transition-delay: 0ms;   }
+[data-fade-stagger] > * + *   { transition-delay: 80ms;  }
+[data-fade-stagger] > * + * + *   { transition-delay: 160ms; }
+[data-fade-stagger] > * + * + * + *   { transition-delay: 240ms; }
+[data-fade-stagger] > * + * + * + * + *   { transition-delay: 320ms; }
+[data-fade-stagger] > * + * + * + * + * + * { transition-delay: 400ms; }
+
+/* Disable entirely for users who prefer no motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-fade],
+  [data-fade-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

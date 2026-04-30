@@ -1,0 +1,174 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SEO from '../../components/SEO.astro';
+import { getCollection } from 'astro:content';
+
+const allServices = (await getCollection('services')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+// Insert a CTA sentinel after every 2nd service (indices 1, 3, 5)
+type Item = { type: 'service'; entry: (typeof allServices)[number] } | { type: 'cta'; n: number };
+const items: Item[] = [];
+allServices.forEach((entry, i) => {
+  items.push({ type: 'service', entry });
+  if ((i + 1) % 2 === 0 && i < allServices.length - 1) {
+    items.push({ type: 'cta', n: Math.floor((i + 1) / 2) });
+  }
+});
+---
+
+<Layout title="Services">
+  <SEO
+    slot="head"
+    title="Services"
+    description="Full restoration paint, factory color matching, custom color development, spot repair, engine bay refinishing, pre-auction prep, and consultation for vintage and classic cars."
+  />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 px-6 max-w-7xl mx-auto">
+    <div class="max-w-2xl" data-fade>
+      <p class="text-xs uppercase tracking-[0.3em] text-accent mb-4">What We Do</p>
+      <h1 class="font-serif text-5xl md:text-6xl text-text leading-tight mb-6">
+        Every car gets the same care. The work scales to what the car needs.
+      </h1>
+      <p class="text-muted text-lg leading-relaxed">
+        Some projects are full bare-metal restorations that take most of a year. Some are subtle
+        corrections to a finish that's almost there. We approach both with the same standards —
+        the only thing that changes is the scope.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <div class="max-w-7xl mx-auto px-6">
+    {items.map((item) => {
+      if (item.type === 'cta') {
+        return (
+          <aside class="my-16 py-16 border-y border-surface text-center" data-fade>
+            <p class="text-xs uppercase tracking-[0.3em] text-accent mb-4">Ready to Start?</p>
+            <p class="font-serif text-3xl md:text-4xl text-text mb-8 max-w-lg mx-auto leading-snug">
+              Every project begins with a conversation.
+            </p>
+            <a
+              href="/contact"
+              class="inline-block px-10 py-4 bg-accent text-text text-xs uppercase tracking-widest hover:bg-accent/80 transition-colors mr-4"
+            >
+              Request a Quote
+            </a>
+            <a
+              href="/process"
+              class="inline-block px-10 py-4 border border-metal/40 text-muted text-xs uppercase tracking-widest hover:border-text hover:text-text transition-colors"
+            >
+              See How We Work
+            </a>
+          </aside>
+        );
+      }
+
+      const { entry } = item;
+      const { title, tagline, hero, included, timeline, starts_at, note } = entry.data;
+      const isEven = (entry.data.order % 2 === 0);
+
+      return (
+        <section
+          id={entry.slug}
+          class:list={[
+            'grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-20 border-b border-surface',
+            'items-center',
+          ]}
+          data-fade
+        >
+          <!-- Image — left on odd orders, right on even -->
+          <div class:list={['aspect-[4/3] bg-surface overflow-hidden', isEven && 'lg:order-2']}>
+            <img
+              src={hero ?? '/images/portfolio/placeholder-hero.svg'}
+              alt={`${title} — example work`}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="800"
+              height="600"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class:list={[isEven && 'lg:order-1']}>
+            <p class="text-xs uppercase tracking-[0.25em] text-accent mb-3">
+              Service {String(entry.data.order).padStart(2, '0')}
+            </p>
+            <h2 class="font-serif text-3xl md:text-4xl text-text mb-4 leading-tight">
+              {title}
+            </h2>
+            <p class="text-muted mb-8 leading-relaxed border-l-2 border-surface pl-4 italic">
+              Best for: {tagline}
+            </p>
+
+            <h3 class="text-xs uppercase tracking-widest text-muted mb-4">What's Included</h3>
+            <ul class="space-y-2 mb-8">
+              {included.map((item) => (
+                <li class="flex items-start gap-3 text-sm text-text/80">
+                  <span class="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            {(timeline || starts_at) && (
+              <div class="flex flex-wrap gap-6 mb-8 text-sm">
+                {timeline && (
+                  <div>
+                    <span class="text-xs uppercase tracking-widest text-muted block mb-1">Timeline</span>
+                    <span class="text-text">{timeline}</span>
+                  </div>
+                )}
+                {starts_at && (
+                  <div>
+                    <span class="text-xs uppercase tracking-widest text-muted block mb-1">Pricing</span>
+                    <span class="text-text">{starts_at}</span>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {note && (
+              <blockquote class="border-l-2 border-accent pl-4 text-sm text-muted italic mb-8 leading-relaxed">
+                {note}
+              </blockquote>
+            )}
+
+            <a
+              href={`/services/${entry.slug}`}
+              class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-accent hover:text-text transition-colors group"
+            >
+              Learn More
+              <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+      );
+    })}
+  </div>
+
+  <!-- How We Quote -->
+  <section class="max-w-7xl mx-auto px-6 py-20" data-fade>
+    <div class="max-w-2xl">
+      <h2 class="font-serif text-3xl text-text mb-6">How We Quote</h2>
+      <p class="text-muted leading-relaxed mb-4">
+        Every project starts with a conversation and, when possible, an in-person inspection.
+        We don't quote from photographs alone for restoration work — we've seen too many cars
+        that looked good in pictures and revealed surprises in the booth.
+      </p>
+      <p class="text-muted leading-relaxed mb-10">
+        For spot repair, color matching, and consultation, photographs are usually enough to
+        give a starting estimate.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block px-10 py-4 bg-accent text-text text-xs uppercase tracking-widest hover:bg-accent/80 transition-colors"
+      >
+        Request a Quote
+      </a>
+    </div>
+  </section>
+</Layout>

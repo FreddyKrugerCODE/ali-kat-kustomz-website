@@ -1,0 +1,226 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SEO from '../../components/SEO.astro';
+import PortfolioCard from '../../components/PortfolioCard.astro';
+import { getCollection } from 'astro:content';
+import { ERA_VALUES } from '../../content/config';
+
+const allEntries = (await getCollection('portfolio')).sort(
+  (a, b) => b.data.completed_date.getTime() - a.data.completed_date.getTime()
+);
+
+// Collect unique makes for the make filter
+const makes = [...new Set(allEntries.map((e) => e.data.make))].sort();
+---
+
+<Layout title="Portfolio">
+  <SEO
+    slot="head"
+    title="Portfolio"
+    description="Browse our complete portfolio of bespoke automotive paint, full restorations, and custom colour work on classic and vintage cars."
+  />
+
+  <!-- Page header -->
+  <section class="max-w-7xl mx-auto px-6 pt-20 pb-10">
+    <p class="text-xs uppercase tracking-[0.3em] text-accent mb-3" data-fade>Our Work</p>
+    <h1 class="font-serif text-5xl md:text-6xl text-text mb-4" data-fade>Portfolio</h1>
+    <p class="text-muted max-w-xl leading-relaxed" data-fade>
+      Every car here carries a story. Filter by era or make to find the work that matters to you.
+    </p>
+  </section>
+
+  <!-- Filter bar -->
+  <section
+    class="sticky top-16 z-20 bg-bg/90 backdrop-blur-sm border-b border-surface"
+    aria-label="Filter portfolio"
+  >
+    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row gap-4">
+
+      <!-- Era filter -->
+      <div class="flex items-center gap-2 flex-wrap" role="group" aria-label="Filter by era">
+        <span class="text-xs uppercase tracking-widest text-muted shrink-0">Era</span>
+        <button
+          class="filter-btn era-btn is-active"
+          data-filter="era"
+          data-value="all"
+          aria-pressed="true"
+        >All</button>
+        {ERA_VALUES.map((era) => (
+          <button
+            class="filter-btn era-btn"
+            data-filter="era"
+            data-value={era}
+            aria-pressed="false"
+          >{era}</button>
+        ))}
+      </div>
+
+      <!-- Divider -->
+      <div class="hidden sm:block w-px bg-surface self-stretch mx-2" aria-hidden="true"></div>
+
+      <!-- Make filter -->
+      <div class="flex items-center gap-2 flex-wrap" role="group" aria-label="Filter by make">
+        <span class="text-xs uppercase tracking-widest text-muted shrink-0">Make</span>
+        <button
+          class="filter-btn make-btn is-active"
+          data-filter="make"
+          data-value="all"
+          aria-pressed="true"
+        >All</button>
+        {makes.map((make) => (
+          <button
+            class="filter-btn make-btn"
+            data-filter="make"
+            data-value={make}
+            aria-pressed="false"
+          >{make}</button>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Live region announces filter result count to screen readers -->
+    <p
+      id="filter-status"
+      class="sr-only"
+      aria-live="polite"
+      aria-atomic="true"
+    ></p>
+
+    <div
+      id="portfolio-grid"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+      {allEntries.map((entry) => (
+        <div
+          class="portfolio-item"
+          data-era={entry.data.era}
+          data-make={entry.data.make}
+        >
+          <PortfolioCard {entry} />
+        </div>
+      ))}
+    </div>
+
+    <!-- Empty state (hidden by default, shown by JS) -->
+    <div
+      id="empty-state"
+      class="hidden py-24 text-center"
+      aria-hidden="true"
+    >
+      <p class="font-serif text-3xl text-muted mb-3">No results</p>
+      <p class="text-sm text-muted">
+        Try a different combination — or{' '}
+        <button id="reset-filters" class="text-accent underline underline-offset-4">
+          clear all filters
+        </button>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .filter-btn {
+    @apply text-xs uppercase tracking-widest px-3 py-1.5 border transition-colors duration-150;
+    @apply border-surface text-muted;
+    @apply hover:border-accent/40 hover:text-text;
+  }
+  .filter-btn.is-active {
+    @apply border-accent text-accent;
+  }
+
+  .portfolio-item {
+    transition: opacity 200ms ease, transform 200ms ease;
+  }
+  .portfolio-item.is-hidden {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio-item { transition: none; }
+  }
+</style>
+
+<script>
+  // ── State ──────────────────────────────────────────────────────────────────
+  const params  = new URLSearchParams(window.location.search);
+  let activeEra  = params.get('era')  ?? 'all';
+  let activeMake = params.get('make') ?? 'all';
+
+  // ── DOM refs ───────────────────────────────────────────────────────────────
+  const items      = document.querySelectorAll<HTMLElement>('.portfolio-item');
+  const eraBtns    = document.querySelectorAll<HTMLButtonElement>('.era-btn');
+  const makeBtns   = document.querySelectorAll<HTMLButtonElement>('.make-btn');
+  const emptyState = document.getElementById('empty-state')!;
+  const statusEl   = document.getElementById('filter-status')!;
+  const resetBtn   = document.getElementById('reset-filters');
+
+  // ── Helpers ────────────────────────────────────────────────────────────────
+  function updateButtons(btns: NodeListOf<HTMLButtonElement>, active: string) {
+    btns.forEach((btn) => {
+      const isActive = btn.dataset.value === active;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-pressed', String(isActive));
+    });
+  }
+
+  function applyFilters() {
+    let visible = 0;
+
+    items.forEach((item) => {
+      const eraMatch  = activeEra  === 'all' || item.dataset.era  === activeEra;
+      const makeMatch = activeMake === 'all' || item.dataset.make === activeMake;
+      const show = eraMatch && makeMatch;
+
+      item.classList.toggle('is-hidden', !show);
+      if (show) visible++;
+    });
+
+    const isEmpty = visible === 0;
+    emptyState.hidden = !isEmpty;
+    emptyState.setAttribute('aria-hidden', String(!isEmpty));
+    statusEl.textContent = isEmpty
+      ? 'No projects match the selected filters.'
+      : `Showing ${visible} project${visible === 1 ? '' : 's'}.`;
+
+    // Update URL without reload
+    const sp = new URLSearchParams();
+    if (activeEra  !== 'all') sp.set('era',  activeEra);
+    if (activeMake !== 'all') sp.set('make', activeMake);
+    const qs = sp.toString();
+    history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
+  }
+
+  // ── Wire buttons ───────────────────────────────────────────────────────────
+  eraBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeEra = btn.dataset.value ?? 'all';
+      updateButtons(eraBtns, activeEra);
+      applyFilters();
+    });
+  });
+
+  makeBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeMake = btn.dataset.value ?? 'all';
+      updateButtons(makeBtns, activeMake);
+      applyFilters();
+    });
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    activeEra = 'all';
+    activeMake = 'all';
+    updateButtons(eraBtns, 'all');
+    updateButtons(makeBtns, 'all');
+    applyFilters();
+  });
+
+  // ── Apply on load (respects URL params) ───────────────────────────────────
+  updateButtons(eraBtns,  activeEra);
+  updateButtons(makeBtns, activeMake);
+  applyFilters();
+</script>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#1E1A18"/>
+      <stop offset="100%" stop-color="#0F0F10"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <!-- Subtle rust/wear texture lines -->
+  <line x1="0" y1="180" x2="800" y2="185" stroke="#3A2A20" stroke-width="1" opacity="0.4"/>
+  <line x1="0" y1="320" x2="800" y2="315" stroke="#3A2A20" stroke-width="1" opacity="0.3"/>
+  <rect x="320" y="255" width="160" height="90" rx="4" fill="none" stroke="#8A8680" stroke-width="1" opacity="0.2"/>
+  <text x="400" y="320" font-family="Georgia, serif" font-size="13" fill="#8A8680" text-anchor="middle" opacity="0.35">before — replace with intake photo</text>
+  <text x="400" y="420" font-family="Georgia, serif" font-size="10" fill="#B8392E" text-anchor="middle" opacity="0.3" letter-spacing="0.15em">BEFORE</text>
+</svg>

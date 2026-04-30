@@ -1,0 +1,214 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SEO from '../components/SEO.astro';
+
+const team = [
+  {
+    name: 'Ali Kat',
+    role: 'Owner & Master Painter',
+    bio: "Twenty years specialising in vintage and classic car refinishing. Trained under two concours-level painters before founding this shop with a single belief: that quality work requires time, and that time shouldn't be rationed.",
+    initials: 'AK',
+  },
+  {
+    name: '[Name]',
+    role: 'Senior Bodywork Technician',
+    bio: 'Responsible for metalwork, panel straightening, and structural prep. The surface quality under primer is his work — and the standard he holds is the reason our color-sand results are what they are.',
+    initials: '—',
+  },
+  {
+    name: '[Name]',
+    role: 'Color Technician',
+    bio: 'Manages formula development, spectrophotometer analysis, and booth application. Has personally developed over 200 custom and factory-match formulas, all archived in our records.',
+    initials: '—',
+  },
+];
+
+const principles = [
+  {
+    title: 'Time is the ingredient nobody can fake.',
+    body: "Bodywork can't be rushed. Cure cycles can't be skipped. Polish can't be improvised. We give every project the time it actually needs — not the time the schedule demands.",
+  },
+  {
+    title: 'The car is the customer too.',
+    body: 'Some decisions — what to strip, what to preserve, what to repair versus replace — should be made for the long-term health of the car, not the speed of the project. We advise accordingly.',
+  },
+  {
+    title: 'Documentation matters.',
+    body: 'Twenty years from now, the next owner of your car should be able to know exactly what we did, with what materials, in what color formula. We make sure they can.',
+  },
+];
+
+const recognition = [
+  { item: 'Featured in Classic & Sports Car — restoration paint special', year: '2023' },
+  { item: 'Aston Martin Owners Club — Recommended Restorer', year: '2022' },
+  { item: 'Best in Class — Pre-War Division, National Classic Car Show', year: '2021' },
+  { item: 'PPG Diamond Award for Outstanding Finish Quality', year: '2020' },
+];
+---
+
+<Layout title="About">
+  <SEO
+    slot="head"
+    title="About"
+    description="A small shop with a long memory. Ali Kat Kustomz was founded on the belief that quality refinishing work requires time, and that time shouldn't be rationed."
+  />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 px-6 max-w-7xl mx-auto">
+    <div class="max-w-2xl" data-fade>
+      <p class="text-xs uppercase tracking-[0.3em] text-accent mb-4">Who We Are</p>
+      <h1 class="font-serif text-5xl md:text-6xl text-text leading-tight mb-6">
+        A small shop with a long memory.
+      </h1>
+      <p class="text-muted text-lg leading-relaxed mb-4">
+        Ali Kat Kustomz was founded after years of painting cars at the volume the industry
+        demanded — and deciding that the work worth doing couldn't be done that way.
+        We built a shop around the kind of paint jobs we'd always wanted to deliver:
+        slower, more careful, and accountable from intake to final polish.
+      </p>
+      <p class="text-muted text-lg leading-relaxed">
+        The shop is still small on purpose. We take a limited number of cars each year.
+        We document every project. And we still mix every color by hand.
+      </p>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="max-w-7xl mx-auto px-6 py-20 border-t border-surface" data-fade>
+    <div class="mb-12">
+      <p class="text-xs uppercase tracking-[0.3em] text-accent mb-3">The People</p>
+      <h2 class="font-serif text-4xl text-text">The Team</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-fade-stagger>
+      {team.map((member) => (
+        <article class="bg-surface border border-bg p-8">
+          <!-- Avatar -->
+          <div
+            class="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mb-6"
+            aria-hidden="true"
+          >
+            <span class="font-serif text-xl text-accent">{member.initials}</span>
+          </div>
+          <h3 class="font-serif text-xl text-text mb-1">{member.name}</h3>
+          <p class="text-xs uppercase tracking-widest text-accent mb-4">{member.role}</p>
+          <p class="text-sm text-muted leading-relaxed">{member.bio}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Facility -->
+  <section class="max-w-7xl mx-auto px-6 py-20 border-t border-surface" data-fade>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <div>
+        <p class="text-xs uppercase tracking-[0.3em] text-accent mb-3">The Space</p>
+        <h2 class="font-serif text-4xl text-text mb-8">The Facility</h2>
+        <div class="space-y-5 text-muted leading-relaxed">
+          <p>
+            The shop is purpose-built for vintage and classic work. Our climate-controlled
+            spray booth maintains temperature and humidity within tight tolerances year-round —
+            because the conditions during application affect every aspect of how paint lays,
+            how metallic flake orients, and how clear flows.
+          </p>
+          <p>
+            The prep room is separated from the spray area. Sanding, grinding, and metalwork
+            happen there; the booth stays clean. This separation sounds obvious but it's
+            not universal — contamination in the spray environment is one of the most common
+            causes of finish defects.
+          </p>
+          <p>
+            Equipment includes a Spektrophotometer for color analysis, digital film
+            thickness gauges, a gloss meter, and a light booth calibrated to D65 for
+            accurate color review. The tools we use are the same tools the best restoration
+            shops and auction houses use to evaluate paint quality.
+          </p>
+        </div>
+      </div>
+
+      <!-- Facility image grid (placeholder) -->
+      <div class="grid grid-cols-2 gap-4">
+        {[
+          'Climate-controlled spray booth',
+          'Prep and bodywork area',
+          'Color development station',
+          'Finished cars in bay',
+        ].map((caption) => (
+          <figure class="aspect-square bg-surface flex flex-col items-center justify-center p-4">
+            <div class="w-8 h-px bg-metal/30 mb-3" aria-hidden="true"></div>
+            <figcaption class="text-xs text-muted/40 text-center leading-snug">
+              {caption}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="max-w-7xl mx-auto px-6 py-20 border-t border-surface" data-fade>
+    <div class="mb-12">
+      <p class="text-xs uppercase tracking-[0.3em] text-accent mb-3">What We Believe</p>
+      <h2 class="font-serif text-4xl text-text">Three principles we don't compromise on.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-surface" data-fade-stagger>
+      {principles.map((p, i) => (
+        <div class="bg-bg p-10">
+          <p
+            class="font-serif text-5xl text-text/10 font-bold mb-6 select-none"
+            aria-hidden="true"
+          >0{i + 1}</p>
+          <h3 class="font-serif text-xl text-text mb-4 leading-snug">{p.title}</h3>
+          <p class="text-sm text-muted leading-relaxed">{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Recognition -->
+  <section class="max-w-7xl mx-auto px-6 py-20 border-t border-surface" data-fade>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div>
+        <p class="text-xs uppercase tracking-[0.3em] text-accent mb-3">Recognition</p>
+        <h2 class="font-serif text-4xl text-text mb-10">Awards & Features</h2>
+        <ul class="divide-y divide-surface">
+          {recognition.map(({ item, year }) => (
+            <li class="flex items-start justify-between gap-6 py-5">
+              <span class="text-text/80 text-sm leading-relaxed">{item}</span>
+              <span class="text-muted text-xs tracking-widest shrink-0 mt-0.5">{year}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- CTA panel -->
+      <div class="flex items-center">
+        <div class="bg-surface border border-bg p-10 w-full">
+          <p class="text-xs uppercase tracking-[0.3em] text-accent mb-4">Visit the Shop</p>
+          <h3 class="font-serif text-3xl text-text mb-4 leading-snug">
+            See the facility in person.
+          </h3>
+          <p class="text-muted text-sm leading-relaxed mb-8">
+            All shop visits are by appointment. We're happy to walk you through an active
+            project, show you the booth, and talk through your car in detail.
+          </p>
+          <div class="flex flex-col gap-3">
+            <a
+              href="/contact"
+              class="inline-block text-center px-8 py-3 bg-accent text-text text-xs uppercase tracking-widest hover:bg-accent/80 transition-colors"
+            >
+              Request a Quote
+            </a>
+            <a
+              href="/contact"
+              class="inline-block text-center px-8 py-3 border border-metal/40 text-muted text-xs uppercase tracking-widest hover:border-text hover:text-text transition-colors"
+            >
+              Schedule a Visit
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

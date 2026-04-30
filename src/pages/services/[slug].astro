@@ -1,0 +1,207 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SEO from '../../components/SEO.astro';
+import { getCollection } from 'astro:content';
+import type { InferGetStaticPropsType } from 'astro';
+
+export const getStaticPaths = async () => {
+  const entries = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+  return entries.map((entry, i) => ({
+    params: { slug: entry.slug },
+    props: {
+      entry,
+      prevEntry: entries[i - 1] ?? null,
+      nextEntry: entries[i + 1] ?? null,
+    },
+  }));
+};
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { entry, prevEntry, nextEntry } = Astro.props;
+const { Content } = await entry.render();
+
+const {
+  title,
+  tagline,
+  hero,
+  included,
+  timeline,
+  starts_at,
+  note,
+  order,
+} = entry.data;
+
+const SITE_URL = Astro.site?.href ?? 'https://alikatkustomz.com/';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: title,
+  description: tagline,
+  url: new URL(`/services/${entry.slug}`, SITE_URL).href,
+  provider: {
+    '@type': 'AutoBodyShop',
+    name: 'Ali Kat Kustomz',
+    url: SITE_URL,
+  },
+};
+---
+
+<Layout title={title}>
+  <SEO
+    slot="head"
+    title={title}
+    description={tagline}
+    image={hero}
+    canonicalURL={new URL(`/services/${entry.slug}`, SITE_URL).href}
+  />
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Hero -->
+  <div class="relative h-[45vh] min-h-64 max-h-[520px] overflow-hidden bg-bg">
+    <img
+      src={hero ?? '/images/portfolio/placeholder-hero.svg'}
+      alt={title}
+      class="absolute inset-0 w-full h-full object-cover opacity-40"
+      fetchpriority="high"
+      decoding="sync"
+      loading="eager"
+      width="1600"
+      height="900"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 max-w-7xl mx-auto px-6 pb-10">
+      <p class="text-xs uppercase tracking-[0.3em] text-accent mb-2">
+        Service {String(order).padStart(2, '0')} of 07
+      </p>
+      <h1 class="font-serif text-4xl md:text-5xl text-text leading-tight">{title}</h1>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="max-w-7xl mx-auto px-6 py-12 lg:py-16">
+    <div class="lg:grid lg:grid-cols-[1fr_320px] lg:gap-16 xl:gap-24">
+
+      <!-- Main -->
+      <div>
+        <p class="font-serif text-xl text-text/80 leading-relaxed mb-10 border-l-2 border-accent pl-6">
+          Best for: {tagline}
+        </p>
+
+        <div class="prose prose-invert prose-p:text-muted prose-headings:font-serif prose-headings:text-text prose-headings:font-normal prose-a:text-accent prose-strong:text-text max-w-none mb-12">
+          <Content />
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="mt-10 lg:mt-0">
+        <div class="lg:sticky lg:top-28 space-y-8">
+
+          <!-- Included -->
+          <div class="bg-surface border border-bg p-6">
+            <h2 class="text-xs uppercase tracking-[0.25em] text-muted border-b border-bg pb-3 mb-4">
+              What's Included
+            </h2>
+            <ul class="space-y-3">
+              {included.map((item: string) => (
+                <li class="flex items-start gap-3 text-sm text-text/80">
+                  <span class="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Meta -->
+          {(timeline || starts_at) && (
+            <div class="bg-surface border border-bg p-6">
+              <h2 class="text-xs uppercase tracking-[0.25em] text-muted border-b border-bg pb-3 mb-4">
+                Project Details
+              </h2>
+              <dl class="space-y-4 text-sm">
+                {timeline && (
+                  <div>
+                    <dt class="text-muted mb-1">Timeline</dt>
+                    <dd class="text-text">{timeline}</dd>
+                  </div>
+                )}
+                {starts_at && (
+                  <div>
+                    <dt class="text-muted mb-1">Pricing</dt>
+                    <dd class="text-text">{starts_at}</dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+          )}
+
+          <!-- Note -->
+          {note && (
+            <div class="bg-surface border border-bg p-6 border-l-2 border-l-accent">
+              <h2 class="text-xs uppercase tracking-[0.25em] text-muted mb-3">Worth Knowing</h2>
+              <p class="text-sm text-muted leading-relaxed italic">{note}</p>
+            </div>
+          )}
+
+          <!-- CTA -->
+          <div class="bg-accent/10 border border-accent/20 p-6 text-center">
+            <p class="text-sm text-text mb-4 leading-relaxed">
+              Interested in this service for your car?
+            </p>
+            <a
+              href="/contact"
+              class="inline-block w-full text-center text-sm uppercase tracking-widest bg-accent text-text px-5 py-3 hover:bg-accent/80 transition-colors"
+            >
+              Request a Quote
+            </a>
+          </div>
+
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Prev / Next -->
+  <nav class="border-t border-surface" aria-label="Other services">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {prevEntry ? (
+        <a
+          href={`/services/${prevEntry.slug}`}
+          class="group flex items-center gap-4 hover:text-accent transition-colors"
+        >
+          <span class="text-2xl text-muted group-hover:text-accent transition-colors" aria-hidden="true">←</span>
+          <span>
+            <span class="block text-xs uppercase tracking-widest text-muted mb-0.5">Previous</span>
+            <span class="block font-serif text-lg text-text group-hover:text-accent transition-colors">
+              {prevEntry.data.title}
+            </span>
+          </span>
+        </a>
+      ) : <div aria-hidden="true"></div>}
+
+      {nextEntry ? (
+        <a
+          href={`/services/${nextEntry.slug}`}
+          class="group flex items-center gap-4 text-right sm:justify-end hover:text-accent transition-colors"
+        >
+          <span>
+            <span class="block text-xs uppercase tracking-widest text-muted mb-0.5">Next</span>
+            <span class="block font-serif text-lg text-text group-hover:text-accent transition-colors">
+              {nextEntry.data.title}
+            </span>
+          </span>
+          <span class="text-2xl text-muted group-hover:text-accent transition-colors" aria-hidden="true">→</span>
+        </a>
+      ) : <div aria-hidden="true"></div>}
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-6 pb-16 text-center">
+    <a
+      href="/services"
+      class="text-xs uppercase tracking-widest text-muted hover:text-accent transition-colors"
+    >
+      ← All Services
+    </a>
+  </div>
+</Layout>

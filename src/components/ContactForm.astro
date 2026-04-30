@@ -1,0 +1,125 @@
+---
+// Static form — wire up to a form backend (Netlify Forms, Formspree, etc.)
+---
+
+<form
+  name="contact"
+  method="POST"
+  class="space-y-6"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+>
+  <input type="hidden" name="form-name" value="contact" />
+  <p class="hidden">
+    <label>Don't fill this out: <input name="bot-field" /></label>
+  </p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <div>
+      <label for="name" class="block text-xs uppercase tracking-widest text-muted mb-2">
+        Full Name *
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        autocomplete="name"
+        class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors"
+      />
+    </div>
+    <div>
+      <label for="email" class="block text-xs uppercase tracking-widest text-muted mb-2">
+        Email *
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        autocomplete="email"
+        class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors"
+      />
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <div>
+      <label for="vehicle_year" class="block text-xs uppercase tracking-widest text-muted mb-2">
+        Year
+      </label>
+      <input
+        type="number"
+        id="vehicle_year"
+        name="vehicle_year"
+        min="1900"
+        max="2030"
+        placeholder="e.g. 1967"
+        class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-muted/40"
+      />
+    </div>
+    <div>
+      <label for="vehicle_make" class="block text-xs uppercase tracking-widest text-muted mb-2">
+        Make
+      </label>
+      <input
+        type="text"
+        id="vehicle_make"
+        name="vehicle_make"
+        placeholder="e.g. Jaguar"
+        class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-muted/40"
+      />
+    </div>
+    <div>
+      <label for="vehicle_model" class="block text-xs uppercase tracking-widest text-muted mb-2">
+        Model
+      </label>
+      <input
+        type="text"
+        id="vehicle_model"
+        name="vehicle_model"
+        placeholder="e.g. E-Type"
+        class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-muted/40"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label for="services" class="block text-xs uppercase tracking-widest text-muted mb-2">
+      Services of Interest
+    </label>
+    <select
+      id="services"
+      name="services"
+      class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors"
+    >
+      <option value="">Select a service&hellip;</option>
+      <option value="full-respray">Full Respray</option>
+      <option value="color-match">Custom Color Match</option>
+      <option value="two-tone">Two-Tone / Multi-Stage</option>
+      <option value="restoration">Full Restoration</option>
+      <option value="touch-up">Touch-Up &amp; Repair</option>
+      <option value="consultation">Consultation Only</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="message" class="block text-xs uppercase tracking-widest text-muted mb-2">
+      Tell Us About Your Project *
+    </label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      rows="5"
+      class="w-full bg-bg border border-surface text-text px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors resize-none"
+    ></textarea>
+  </div>
+
+  <button
+    type="submit"
+    class="px-10 py-3 bg-accent text-text font-sans text-sm uppercase tracking-widest hover:bg-accent/80 transition-colors"
+  >
+    Send Enquiry
+  </button>
+</form>

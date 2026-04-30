@@ -1,0 +1,170 @@
+---
+const year = new Date().getFullYear();
+
+const sitemapLinks = [
+  { href: '/',          label: 'Home'        },
+  { href: '/services',  label: 'Services'    },
+  { href: '/portfolio', label: 'Portfolio'   },
+  { href: '/process',   label: 'Our Process' },
+  { href: '/about',     label: 'About'       },
+  { href: '/contact',   label: 'Contact'     },
+];
+
+const hours = [
+  { days: 'Mon – Fri', time: '8:00 am – 6:00 pm' },
+  { days: 'Saturday',  time: '9:00 am – 3:00 pm'  },
+  { days: 'Sunday',    time: 'Closed'              },
+];
+---
+
+<footer aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <!-- ── Three-column grid ────────────────────────────────────────────── -->
+  <div class="bg-surface border-t border-bg">
+    <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+
+      <!-- Col 1: Brand -->
+      <div>
+        <a
+          href="/"
+          class="inline-block font-serif text-2xl font-bold text-text
+                 hover:text-accent transition-colors duration-200 mb-4"
+          aria-label="Ali Kat Kustomz — home"
+        >
+          Ali Kat <span class="text-accent">Kustomz</span>
+        </a>
+        <p class="text-sm text-muted leading-relaxed max-w-xs">
+          Bespoke automotive paint and restoration for discerning collectors.
+          Every car a canvas; every finish a legacy.
+        </p>
+      </div>
+
+      <!-- Col 2: Contact & Hours -->
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-metal mb-5" aria-hidden="true">
+          Find Us
+        </p>
+
+        <address class="not-italic text-sm text-muted leading-relaxed space-y-4">
+
+          <!-- Physical address -->
+          <div>
+            <a
+              href="https://maps.google.com/?q=123+Custom+Row+Your+City+ST+00000"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-text transition-colors duration-200"
+              aria-label="Open address in Google Maps (opens in new tab)"
+            >
+              123 Custom Row<br />
+              Your City, ST 00000
+            </a>
+          </div>
+
+          <!-- Phone & email -->
+          <div class="space-y-1">
+            <p>
+              <a
+                href="tel:+15550000000"
+                class="hover:text-text transition-colors duration-200"
+                aria-label="Call us at (555) 000-0000"
+              >
+                (555) 000-0000
+              </a>
+            </p>
+            <p>
+              <a
+                href="mailto:hello@alikatkustomz.com"
+                class="hover:text-text transition-colors duration-200"
+              >
+                hello@alikatkustomz.com
+              </a>
+            </p>
+          </div>
+
+          <!-- Opening hours -->
+          <div>
+            <p class="text-xs uppercase tracking-[0.15em] text-metal mb-2">Hours</p>
+            <dl class="space-y-1">
+              {hours.map(({ days, time }) => (
+                <div class="flex justify-between gap-4">
+                  <dt class="text-muted">{days}</dt>
+                  <dd class:list={[
+                    'text-right',
+                    time === 'Closed' ? 'text-muted/60' : 'text-text/70',
+                  ]}>
+                    {time}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+        </address>
+      </div>
+
+      <!-- Col 3: Social + Sitemap -->
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-metal mb-5" aria-hidden="true">
+          Explore
+        </p>
+
+        <!-- Instagram link with inline SVG icon -->
+        <a
+          href="https://instagram.com/alikatkustomz"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-sm text-muted
+                 hover:text-text transition-colors duration-200 mb-6 group"
+          aria-label="Follow Ali Kat Kustomz on Instagram (opens in new tab)"
+        >
+          <!-- Instagram glyph -->
+          <svg
+            class="w-5 h-5 group-hover:text-accent transition-colors duration-200"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+          </svg>
+          @alikatkustomz
+        </a>
+
+        <!-- Sitemap links -->
+        <nav aria-label="Footer navigation">
+          <ul role="list" class="space-y-2">
+            {sitemapLinks.map(({ href, label }) => (
+              <li>
+                <a
+                  href={href}
+                  class="text-sm text-muted hover:text-text transition-colors duration-200"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Bottom bar ───────────────────────────────────────────────────── -->
+  <div class="bg-bg border-t border-surface">
+    <div class="max-w-7xl mx-auto px-6 py-4
+                flex flex-col sm:flex-row items-center justify-between gap-2
+                text-xs text-muted">
+      <p>
+        &copy; {year} Ali Kat Kustomz. All rights reserved.
+      </p>
+      <p>Built with care.</p>
+    </div>
+  </div>
+
+</footer>

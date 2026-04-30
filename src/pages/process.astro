@@ -1,0 +1,179 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SEO from '../components/SEO.astro';
+
+const stages = [
+  {
+    number: '01',
+    title: 'Intake & Documentation',
+    body: `When a car arrives, the first thing we do is look at it carefully. We photograph every panel, every scratch, every existing repair. We pull factory tags and build records. If the car has original paint anywhere — door jambs, under trim, inside the trunk — we save samples and reference them throughout the project.
+
+This stage takes 1–2 days. The output is a written condition report and color analysis that becomes the project's reference document.`,
+  },
+  {
+    number: '02',
+    title: 'Disassembly',
+    body: `Trim, glass, lighting, badging, weather strip, door handles, hinges — everything comes off. Each piece is bagged, labeled, and photographed in place before removal so reassembly is exact.
+
+Anything that won't be reused is set aside; anything that will be is cleaned, evaluated, and stored.`,
+  },
+  {
+    number: '03',
+    title: 'Strip to Bare Metal',
+    body: `Method depends on the panel and the car. Heavy structural panels often go to media blast. Thin panels, particularly older sheet metal that can warp, are usually chemical-stripped. Aluminium and pot metal get hand-stripped.
+
+We don't paint over old finishes. Ever. The integrity of new paint is only as good as what's underneath, and we'd rather find rust now than have it bubble through your fresh paint in two years.`,
+  },
+  {
+    number: '04',
+    title: 'Bodywork & Block-Sanding',
+    body: `This is where the real time goes. Panels are straightened, rust repair is fabricated and welded in, low spots are filled, and the entire body is block-sanded — meaning we use rigid blocks, not hands, so the surface comes out truly flat.
+
+A car straight under primer is a car that will be straight under color. There's no fixing geometry with paint.`,
+  },
+  {
+    number: '05',
+    title: 'Sealer & Color',
+    body: `The car moves into the booth. Sealer goes on first to lock down the prep work and provide a uniform foundation. Then color — typically 2–4 coats, depending on the system and the color.
+
+For factory restorations, the color is hand-mixed against samples. For custom work, it's mixed against the test panels we developed earlier in the project.`,
+  },
+  {
+    number: '06',
+    title: 'Clear & Cure',
+    body: `3–5 coats of premium urethane clear, applied wet-on-wet within the manufacturer's window. The car is then baked at controlled temperature to fully cure the system.
+
+After bake, the car rests. We don't sand fresh clear — we wait until the coating is fully through its cure cycle, usually a week or more, so the final polish reflects the cured surface, not a shrinking one.`,
+  },
+  {
+    number: '07',
+    title: 'Color Sand & Polish',
+    body: `The clear is wet-sanded flat with progressively finer grits, removing all orange peel and surface texture. Then it's machine-polished through a multi-step compound and polish sequence to a true mirror finish.
+
+This is the stage that separates a good paint job from a great one. Most production shops skip it. We never do.`,
+  },
+];
+---
+
+<Layout title="Our Process">
+  <SEO
+    slot="head"
+    title="Our Process"
+    description="Seven stages of vintage car painting, from intake to final polish. Learn how we approach restoration paint, color matching, and concours finishing."
+  />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-20 px-6 max-w-7xl mx-auto">
+    <div class="max-w-2xl" data-fade>
+      <p class="text-xs uppercase tracking-[0.3em] text-accent mb-4">How We Work</p>
+      <h1 class="font-serif text-5xl md:text-6xl text-text leading-tight mb-6">
+        A car spends 95% of its time with us not being painted.
+      </h1>
+      <p class="text-muted text-lg leading-relaxed">
+        Color is the part of refinishing that gets photographed. The other six stages are
+        what determine whether the paint is still beautiful in twenty years.
+        Here's how we work.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stages -->
+  <div class="max-w-7xl mx-auto px-6">
+    {stages.map((stage, i) => {
+      const isEven = i % 2 === 0;
+      return (
+        <section
+          class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-20 border-b border-surface items-center"
+          data-fade
+          aria-labelledby={`stage-${stage.number}-title`}
+        >
+          <!-- Placeholder image area -->
+          <div class:list={['relative aspect-[4/3] bg-surface overflow-hidden', !isEven && 'lg:order-2']}>
+            <!-- Large stage number watermark -->
+            <div
+              class="absolute inset-0 flex items-center justify-center"
+              aria-hidden="true"
+            >
+              <span class="font-serif text-[12rem] font-bold leading-none text-text/[0.04] select-none">
+                {stage.number}
+              </span>
+            </div>
+            <!-- Placeholder content -->
+            <div class="absolute inset-0 flex flex-col items-center justify-end p-6">
+              <div class="w-16 h-px bg-metal/30 mb-4"></div>
+              <p class="text-xs uppercase tracking-widest text-muted/40 text-center">
+                Stage {stage.number} — replace with photo
+              </p>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class:list={[!isEven && 'lg:order-1']}>
+            <div class="flex items-baseline gap-4 mb-4">
+              <span
+                class="font-serif text-6xl text-text/10 font-bold leading-none select-none"
+                aria-hidden="true"
+              >{stage.number}</span>
+              <p class="text-xs uppercase tracking-[0.25em] text-accent">Stage {stage.number}</p>
+            </div>
+            <h2
+              id={`stage-${stage.number}-title`}
+              class="font-serif text-3xl md:text-4xl text-text mb-6 leading-tight"
+            >
+              {stage.title}
+            </h2>
+            <div class="space-y-4">
+              {stage.body.split('\n\n').map((para) => (
+                <p class="text-muted leading-relaxed">{para}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    })}
+  </div>
+
+  <!-- After the Booth -->
+  <section class="max-w-7xl mx-auto px-6 py-20 border-b border-surface" data-fade>
+    <div class="max-w-2xl">
+      <p class="text-xs uppercase tracking-[0.3em] text-accent mb-4">After the Booth</p>
+      <h2 class="font-serif text-3xl text-text mb-6">Reassembly & Handover</h2>
+      <p class="text-muted leading-relaxed mb-4">
+        Reassembly is just as careful as disassembly. New seals, new clips, new hardware
+        where appropriate. The car is detailed, photographed against a neutral background
+        for our records and yours.
+      </p>
+      <p class="text-muted leading-relaxed">
+        You receive a documentation package that includes the color formula on archival
+        card, photographs from every stage, DFT readings by panel, and our workmanship
+        guarantee in writing.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-7xl mx-auto px-6 py-24 text-center" data-fade>
+    <p class="text-xs uppercase tracking-[0.3em] text-accent mb-4">Ready to Start?</p>
+    <h2 class="font-serif text-4xl md:text-5xl text-text mb-6 leading-tight">
+      Ready to start a project?
+    </h2>
+    <p class="text-muted mb-10 max-w-md mx-auto leading-relaxed">
+      Every project begins with a conversation. Tell us about your car and we'll come
+      back to you within two business days.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        href="/contact"
+        class="inline-block px-10 py-4 bg-accent text-text text-xs uppercase tracking-widest hover:bg-accent/80 transition-colors"
+      >
+        Request a Quote
+      </a>
+      <a
+        href="/portfolio"
+        class="inline-block px-10 py-4 border border-metal/40 text-muted text-xs uppercase tracking-widest hover:border-text hover:text-text transition-colors"
+      >
+        See the Work
+      </a>
+    </div>
+  </section>
+</Layout>
