@@ -34,6 +34,9 @@ const { title, description, image, type, canonicalURL } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
 
+    <!-- Netlify Identity — enables Decap CMS login from any page -->
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
     <!-- Preconnect is not needed — fonts are self-hosted via @fontsource -->
 
     <!-- SEO, OG, JSON-LD — rendered only when description is passed to Layout -->
@@ -78,6 +81,19 @@ const { title, description, image, type, canonicalURL } = Astro.props;
     </main>
 
     <Footer />
+
+    <!-- After Netlify Identity login, redirect to /admin/ -->
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function(user) {
+          if (!user) {
+            window.netlifyIdentity.on('login', function() {
+              document.location.href = '/admin/';
+            });
+          }
+        });
+      }
+    </script>
 
   </body>
 </html>

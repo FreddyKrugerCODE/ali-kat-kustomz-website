@@ -1,0 +1,244 @@
+backend:
+  name: git-gateway
+  branch: master
+
+# Where uploaded images are saved (relative to project root)
+media_folder: public/images/portfolio
+# Path stored in frontmatter
+public_folder: /images/portfolio
+
+site_url: https://alikatkustomz.com
+display_url: https://alikatkustomz.com
+logo_url: https://alikatkustomz.com/favicon.svg
+
+# Show a confirmation dialog before publishing
+publish_mode: simple
+
+collections:
+  # ── Portfolio ──────────────────────────────────────────────────────────────
+  - name: portfolio
+    label: Portfolio
+    label_singular: Portfolio Entry
+    folder: src/content/portfolio
+    create: true
+    slug: "{{year}}-{{make | slugify}}-{{model | slugify}}"
+    summary: "{{title}} | {{year}} {{make}} {{model}} ({{era}})"
+    sortable_fields: [completed_date, make, year]
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        required: false
+        hint: "Optional — leave blank to auto-generate from year/make/model on the site."
+
+      - label: Year
+        name: year
+        widget: number
+        value_type: int
+        min: 1886
+        max: 2099
+
+      - label: Make
+        name: make
+        widget: string
+        hint: "e.g. Aston Martin"
+
+      - label: Model
+        name: model
+        widget: string
+        hint: "e.g. DB5"
+
+      - label: Era
+        name: era
+        widget: select
+        options:
+          - { label: "Pre-War (before 1940)", value: "pre-war" }
+          - { label: "Fifties (1950–1959)", value: "50s" }
+          - { label: "Sixties (1960–1969)", value: "60s" }
+          - { label: "Seventies (1970–1979)", value: "70s" }
+          - { label: "Eighties & Later (1980+)", value: "80s+" }
+
+      - label: Services Performed
+        name: services
+        widget: list
+        hint: "One service per item — e.g. Full Restoration Respray, Panel Gap Correction"
+
+      - label: Hero Image
+        name: hero
+        widget: image
+        hint: "Main cover image shown on the portfolio card and page hero."
+
+      - label: Before Image
+        name: before
+        widget: image
+        required: false
+        hint: "Intake photo — when present, a before/after comparison slider is shown."
+
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        hint: "Additional detail images shown in the masonry gallery."
+        fields:
+          - label: Image
+            name: src
+            widget: image
+          - label: Caption
+            name: caption
+            widget: string
+            required: false
+
+      - label: Description
+        name: description
+        widget: text
+        hint: "Short teaser (2–3 sentences) shown on the portfolio card and in the page SEO description."
+
+      - label: Colour Name
+        name: color_name
+        widget: string
+        required: false
+        hint: "e.g. Silver Birch, British Racing Green — Deep Formula"
+
+      - label: Colour Formula
+        name: color_formula
+        widget: string
+        required: false
+        hint: "e.g. PPG DBU 4500 base + 0.5% Carbon Black Pearl"
+
+      - label: Paint System
+        name: paint_system
+        widget: string
+        required: false
+        hint: "e.g. PPG Deltron 2000, Standox Standohyd WB, BASF Glasurit 90-Line"
+
+      - label: Duration (months)
+        name: duration_months
+        widget: number
+        value_type: int
+        min: 1
+        required: false
+
+      - label: Completion Date
+        name: completed_date
+        widget: date
+        format: "YYYY-MM-DD"
+
+      - label: Featured on Homepage
+        name: featured
+        widget: boolean
+        default: false
+        hint: "Pin this project to the homepage Featured Work section."
+
+      - label: Project Write-up
+        name: body
+        widget: markdown
+        hint: "Full project story — colour challenges, bodywork, techniques used."
+
+  # ── Testimonials ───────────────────────────────────────────────────────────
+  - name: testimonials
+    label: Testimonials
+    label_singular: Testimonial
+    folder: src/content/testimonials
+    create: true
+    slug: "{{author | slugify}}"
+    summary: "{{author}} — {{vehicle}}"
+    sortable_fields: [date, author]
+    fields:
+      - label: Author
+        name: author
+        widget: string
+
+      - label: Vehicle
+        name: vehicle
+        widget: string
+        required: false
+        hint: "e.g. 1965 Aston Martin DB5"
+
+      - label: Photo
+        name: photo
+        widget: image
+        required: false
+        hint: "Optional portrait of the customer."
+
+      - label: Rating
+        name: rating
+        widget: select
+        options:
+          - { label: "★★★★★  5 stars", value: 5 }
+          - { label: "★★★★☆  4 stars", value: 4 }
+          - { label: "★★★☆☆  3 stars", value: 3 }
+        default: 5
+
+      - label: Date
+        name: date
+        widget: date
+        format: "YYYY-MM-DD"
+
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        hint: "Show on homepage testimonials section (up to 3 featured)."
+
+      - label: Quote
+        name: body
+        widget: markdown
+        hint: "The customer's testimonial text."
+
+  # ── Services ───────────────────────────────────────────────────────────────
+  - name: services
+    label: Services
+    label_singular: Service
+    folder: src/content/services
+    create: false
+    delete: false
+    summary: "{{order}}. {{title}}"
+    sortable_fields: [order, title]
+    fields:
+      - label: Title
+        name: title
+        widget: string
+
+      - label: Display Order
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        hint: "1 = first in the services list."
+
+      - label: Tagline
+        name: tagline
+        widget: string
+        hint: "Short descriptor shown as 'Best for:' on the detail page."
+
+      - label: Hero Image
+        name: hero
+        widget: image
+        required: false
+
+      - label: "What's Included"
+        name: included
+        widget: list
+        hint: "One item per line — these appear as bullet points in the sidebar."
+
+      - label: Timeline
+        name: timeline
+        widget: string
+        required: false
+        hint: "e.g. Typically 4–9 months"
+
+      - label: Pricing (Starts At)
+        name: starts_at
+        widget: string
+        required: false
+        hint: "e.g. $12,000 — exact quote requires inspection"
+
+      - label: Worth Knowing (Note)
+        name: note
+        widget: text
+        required: false
+        hint: "Optional callout box shown in the sidebar — honest caveats or important context."
+
+      - label: Service Description
+        name: body
+        widget: markdown
