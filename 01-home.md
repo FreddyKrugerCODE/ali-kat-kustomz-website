@@ -1,7 +1,7 @@
 ---
 page: home
-title: "[YOUR SHOP NAME] — Custom Paint for Vintage Cars | [CITY]"
-metaDescription: "Concours-quality custom painting and color restoration for vintage and classic cars. Hand-mixed color, bare-metal preparation, lifetime craftsmanship. Based in [CITY]."
+title: "ALI KAT KUSTOMZ — Custom Paint for Vintage Cars | San Pedro"
+metaDescription: "Concours-quality custom painting and color restoration for vintage and classic cars. Hand-mixed color, bare-metal preparation, lifetime craftsmanship. Based in San Pedro."
 ---
 
 # Homepage Copy
@@ -23,8 +23,7 @@ metaDescription: "Concours-quality custom painting and color restoration for vin
 
 - [X] years specializing in vintage refinishing
 - [X]+ restorations completed
-- Featured in [Hemmings / Hot Rod / Hagerty / etc.]
-- [Award name, year]
+- Featured in Hemmings / Hot Rod / Hagerty / etc.
 
 ---
 
@@ -105,7 +104,7 @@ Three columns:
 
 **Headline:** A small shop on purpose.
 
-**Body:** We take [X] cars per year. That's not a marketing line — it's the number we can do well, given the way we work. Most projects take [4–9] months. Most of our clients have been on a waitlist before they ever dropped off keys. We'd rather you wait and get the car you wanted than rush and get one you didn't.
+**Body:** We take 20 cars per year. That's not a marketing line — it's the number we can do well, given the way we work. Most projects take 4–9 months. Most of our clients have been on a waitlist before they ever dropped off keys. We'd rather you wait and get the car you wanted than rush and get one you didn't.
 
 **CTA:** About the Shop
 
@@ -118,7 +117,7 @@ Three columns:
 **Body:** Whether you have a project ready to start, a color you've been chasing, or just a question about how we work — we'd like to hear from you.
 
 **Primary CTA:** Request a Quote
-**Secondary CTA:** Call [PHONE]
+**Secondary CTA:** Call 562-542-7296
 
 ---
 
@@ -127,4 +126,4 @@ Three columns:
 - Shop hours, phone, email
 - Address (or "by appointment only")
 - Instagram handle (most important social channel for this industry)
-- "© [YEAR] [SHOP NAME]. Built with care."
+- "© 1996 ALI KAT KUSTOMZ. Built with care."

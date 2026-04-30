@@ -6,7 +6,7 @@
 
 ## 1. Positioning Statement
 
-For **[discerning vintage car owners / restoration shops / collectors]** who want their classic vehicle painted with the precision and craftsmanship it deserves, **[YOUR SHOP NAME]** is the **[specialty: muscle car / pre-war classic / European vintage]** custom painting studio that **[your unique promise: delivers concours-quality finishes / honors original factory specs / blends old-school techniques with modern materials]**. Unlike production body shops, we **[your differentiator: hand-mix every color, take only 6 cars per year, document every step, etc.]**.
+For discerning vintage car owners who want their classic vehicle painted with the precision and craftsmanship it deserves, ALI KAT KUSTOMZ is the muscle car, american vintage car custom painting studio that delivers blends old-school techniques with modern materials. Unlike production body shops, we hand-mix every color.
 
 ---
 
@@ -40,35 +40,28 @@ For **[discerning vintage car owners / restoration shops / collectors]** who wan
 
 ## 4. Core Services (Edit to Match Yours)
 
-1. **Full-restoration paint jobs** — bare-metal strip, body prep, primer, color, clear
-2. **Color-matching / factory-correct restorations** — original codes, period-correct finishes
-3. **Custom & commissioned color** — hand-mixed one-off colors, candy and pearl finishes
-4. **Show-quality refinishing** — color sanding, polishing, concours prep
-5. **Engine bay and chassis refinishing**
-6. **Stripe and graphics work** — hand-laid pinstriping, period decals
-7. **Spot repair and panel-matching** — invisible repairs to existing finishes
-8. **Pre-auction touch-up and detail**
-9. **Consultation and color planning** — for owners doing their own restoration
-10. **Insurance restoration partnerships**
+1. Full-restoration paint jobs — bare-metal strip, body prep, primer, color, clear
+2. Color-matching / factory-correct restorations — original codes, period-correct finishes
+3. Custom & commissioned color — hand-mixed one-off colors, candy and pearl finishes
+4. Show-quality refinishing — color sanding, polishing, concours prep
+5. Custom engine bay and chassis refinishing
+6. Stripe and graphics work — hand-laid pinstriping, period decals
+7. Spot repair and panel-matching — invisible repairs to existing finishes
 
 ---
 
 ## 5. Differentiators (Pick 3–5 That Are TRUE for You)
 
-- [ ] We take only [X] cars per year, by application
-- [ ] [X]+ years specializing exclusively in [era/marque]
-- [ ] Award-winning shop ([show wins, magazine features])
-- [ ] Climate-controlled spray booth and dust-free finishing room
-- [ ] We document every project with [photos / video / written log]
-- [ ] We use [specific paint system: PPG Deltron, Glasurit, House of Kolor]
-- [ ] Lifetime workmanship guarantee on full restorations
-- [ ] In-house metal fabrication and rust repair
-- [ ] [Specific master technician/owner credential]
+- [x] 30+ years specializing exclusively in [era/marque
+- [x] We document every project with [photos / video / written log]
+- [x] We use PPG Deltron, Glasurit, House of Kolor
+- [x] Lifetime workmanship guarantee on full restorations
+- [x] In-house metal fabrication and rust repair
 
 ---
 
 ## 6. Service Area
 
-- **Primary:** [Your city] and within [X] miles
-- **Secondary:** [State/region] — we accept enclosed transport from anywhere
-- **National:** Featured/published clients have shipped from [list states]
+- **Primary:** San Pedro and within [15] miles
+- **Secondary:** Los Angeles, California — we accept enclosed transport from anywhere
+- **National:** Featured/published clients have shipped from all states

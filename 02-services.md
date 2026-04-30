@@ -1,6 +1,6 @@
 ---
 page: services
-title: "Services | [YOUR SHOP NAME] — Vintage Car Painting in [CITY]"
+title: "Services | ALI KAT KUSTOMZ — Vintage Car Painting in San Pedro"
 metaDescription: "Full-restoration paint, factory color matching, custom color development, and concours finishing for vintage and classic cars. Hand-mixed paint, climate-controlled facility."
 ---
 
@@ -29,9 +29,9 @@ metaDescription: "Full-restoration paint, factory color matching, custom color d
 - Color-sand and polish to final gloss
 - Reassembly with new gaskets, weather strip, and trim as needed
 
-**Timeline:** Typically [4–9] months depending on body condition and disassembly scope.
+**Timeline:** Typically 4–9 months depending on body condition and disassembly scope.
 
-**Starts at:** [$XX,XXX] — exact quote requires inspection.
+**Starts at:** [$8,000] — exact quote requires inspection.
 
 ---
 

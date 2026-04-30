@@ -1,6 +1,6 @@
 ---
 page: process
-title: "Our Process | [YOUR SHOP NAME]"
+title: "Our Process | ALI KAT KUSTOMZ"
 metaDescription: "Seven stages of vintage car painting, from intake to final polish. Learn how we approach restoration paint, color matching, and concours finishing."
 ---
 
@@ -87,35 +87,26 @@ Reassembly is just as careful as disassembly. New seals, new clips, new hardware
 ---
 page: about
 title: "About | [YOUR SHOP NAME]"
-metaDescription: "[YOUR SHOP NAME] is a [X]-car-per-year custom paint studio specializing in vintage automobiles. Based in [CITY]. Founded by [FOUNDER NAME] in [YEAR]."
+metaDescription: "[YOUR SHOP NAME] is a 20-car-per-year custom paint studio specializing in vintage automobiles. Based in San Pedro. Founded by Ali Berinti in 1996."
 ---
 
 ## Hero
 
 **Headline:** A small shop with a long memory.
 
-**Body:** [YOUR SHOP NAME] was founded in [YEAR] by [FOUNDER NAME], who had spent [X] years painting [type of cars] before deciding the work he wanted to do couldn't be done at the volume the industry demanded. He built a shop around the kind of paint jobs he'd always wanted to deliver — slower, more careful, and accountable from intake to final polish.
+**Body:** ALI KAT KUSTOMZ was founded in 1996 by Ali Berinti, who had spent 30 years painting old school cars before deciding the work he wanted to do couldn't be done at the volume the industry demanded. He built a shop around the kind of paint jobs he'd always wanted to deliver — slower, more careful, and accountable from intake to final polish.
 
-[X] years later, the shop is still small on purpose. We take [X] cars per year. We document every project. And we still mix every color by hand.
+30 years later, the shop is still small on purpose. We take 20 cars per year. We document every project. And we still mix every color by hand.
 
 ---
 
 ## The Team
 
-**[FOUNDER NAME] — Owner & Master Painter**
-[1–2 sentences on background, training, awards, what they specialize in]
+**Ali Berinti — Owner & Master Painter**
+Forged by decades of chasing the perfect reflection, true old-school craftsmanship turns bare metal into rolling masterpieces. We don't just spray paint; we lay down deep, flawless, mirror-like finishes that command absolute respect on the asphalt.
 
-**[NAME] — [ROLE]**
-[1–2 sentences]
-
-**[NAME] — [ROLE]**
-[1–2 sentences]
-
----
-
-## The Facility
-
-[2–3 paragraphs describing the shop. Booth size, prep room, climate control, special equipment. Include 2–3 photos of the facility.]
+**Fred Florczak — Marketing&Management**
+Transforming bold ideas into measurable growth demands more than just creativity; it requires strategic mastery and flawless operational execution. We bridge the gap between high-impact marketing and sharp business management to engineer brands that dictate the market, rather than just reacting to it.
 
 ---
 
@@ -124,14 +115,6 @@ metaDescription: "[YOUR SHOP NAME] is a [X]-car-per-year custom paint studio spe
 - **Time is the ingredient nobody can fake.** Bodywork can't be rushed. Cure cycles can't be skipped. Polish can't be improvised. We give every project the time it actually needs.
 - **The car is the customer too.** Some decisions — what to strip, what to preserve, what to repair vs. replace — should be made for the long-term health of the car, not the speed of the project.
 - **Documentation matters.** Twenty years from now, the next owner of your car should be able to know exactly what we did, with what materials, in what color formula. We make sure they can.
-
----
-
-## Recognition
-
-- [Award, year]
-- [Magazine feature, year]
-- [Show win, year]
 
 ---
 
@@ -144,7 +127,7 @@ metaDescription: "[YOUR SHOP NAME] is a [X]-car-per-year custom paint studio spe
 
 ---
 page: contact
-title: "Contact & Quote Request | [YOUR SHOP NAME]"
+title: "Contact & Quote Request | ALI KAT KUSTOMZ"
 metaDescription: "Request a quote, ask a question, or schedule a shop visit. We respond to every inquiry within two business days."
 ---
 
@@ -174,11 +157,11 @@ metaDescription: "Request a quote, ask a question, or schedule a shop visit. We 
 
 ## Other Ways to Reach Us
 
-- **Phone:** [PHONE]
-- **Email:** [EMAIL]
-- **Shop hours:** [HOURS]
-- **Address:** [ADDRESS or "By appointment only"]
-- **Instagram:** [@HANDLE]
+- **Phone:** [562-542-7296]
+- **Email:** [kustomz.ali.kat@gmail.com]
+- **Shop hours:** [12PM-8PM]
+- **Address:** [130 N Pacific Ave, San Pedro, CA 90731]
+- **Instagram:** [https://www.instagram.com/ali.kat.kustomz/]
 
 ---
 
