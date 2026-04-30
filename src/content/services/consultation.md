@@ -2,7 +2,7 @@
 title: "Consultation"
 order: 7
 tagline: "Owners doing their own restoration who want a professional eye on color, prep standards, or paint system selection."
-hero: /images/portfolio/placeholder-hero.svg
+hero: /images/services/service-consultation-build-sheet-review-16x9.webp
 included:
   - Shop visit or video consultation to review the project
   - Recommendations on materials, sequence, and approach

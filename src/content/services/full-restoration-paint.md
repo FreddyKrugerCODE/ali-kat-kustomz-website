@@ -2,7 +2,7 @@
 title: "Full Restoration Paint"
 order: 1
 tagline: "Cars going from rough or original-paint condition to show, museum, or driver-quality finish."
-hero: /images/portfolio/placeholder-hero.svg
+hero: /images/services/service-restoration-bare-metal-prep-16x9.webp
 included:
   - Complete disassembly and trim removal
   - Bare-metal strip (media blast or chemical, panel-appropriate)

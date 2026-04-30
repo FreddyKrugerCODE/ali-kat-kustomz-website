@@ -2,7 +2,7 @@
 title: "Engine Bay & Chassis Refinishing"
 order: 5
 tagline: "Concours-prep, frame-off restorations, or owners who want what's underneath to match what's on top."
-hero: /images/portfolio/placeholder-hero.svg
+hero: /images/services/service-chassis-satin-black-finish-16x9.webp
 included:
   - Frame and chassis refinishing in correct gloss level (often satin or semi-gloss for period correctness)
   - Engine bay color — body-color or factory-correct semi-gloss black as appropriate

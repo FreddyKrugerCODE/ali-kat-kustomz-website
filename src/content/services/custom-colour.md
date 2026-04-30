@@ -2,7 +2,7 @@
 title: "Custom & Commissioned Color"
 order: 3
 tagline: "Resto-mods, hot rods, and owners who want a color no one else has."
-hero: /images/portfolio/placeholder-hero.svg
+hero: /images/services/service-custom-color-development-16x9.webp
 included:
   - Color development consultation — references, mood, lighting conditions
   - Test panels sprayed and reviewed in sun, shade, and shop light

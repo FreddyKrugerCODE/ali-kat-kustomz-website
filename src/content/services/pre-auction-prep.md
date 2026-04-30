@@ -2,7 +2,7 @@
 title: "Pre-Auction & Show Prep"
 order: 6
 tagline: "Cars heading to Mecum, Barrett-Jackson, RM Sotheby's, Pebble Beach, Amelia Island, or similar venues."
-hero: /images/portfolio/placeholder-hero.svg
+hero: /images/services/service-pre-auction-polish-mirror-16x9.webp
 included:
   - Final color-sand and polish to peak gloss
   - Detail and correction of any minor finish issues

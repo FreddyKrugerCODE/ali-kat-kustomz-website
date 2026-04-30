@@ -2,7 +2,7 @@
 title: "Color Matching & Factory Restoration"
 order: 2
 tagline: "Owners who want the original factory color brought back exactly — including the way it's aged."
-hero: /images/portfolio/placeholder-hero.svg
+hero: /images/services/service-color-matching-spectrophotometer-16x9.webp
 included:
   - Original color code research (factory tags, build sheets, marque registries)
   - Sample analysis from protected areas of the car

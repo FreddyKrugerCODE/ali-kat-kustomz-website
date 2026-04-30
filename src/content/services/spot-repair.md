@@ -2,7 +2,7 @@
 title: "Spot Repair & Panel-Matching"
 order: 4
 tagline: "Existing high-quality finishes that have been damaged in one area."
-hero: /images/portfolio/placeholder-hero.svg
+hero: /images/services/service-spot-repair-detail-spray-16x9.webp
 included:
   - Color-match to existing finish using spectrophotometer and visual review
   - Blend repair — feathering color into adjacent panels for invisibility
