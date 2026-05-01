@@ -95,5 +95,26 @@ const { title, description, image, type, canonicalURL } = Astro.props;
       }
     </script>
 
+    <!-- Scroll-reveal: fires .is-visible on [data-fade] elements as they enter the viewport -->
+    <script>
+      (function initFadeObserver() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const elements = document.querySelectorAll('[data-fade]');
+        if (!elements.length) return;
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -50px 0px' }
+        );
+        for (const el of elements) observer.observe(el);
+      })();
+    </script>
+
   </body>
 </html>
