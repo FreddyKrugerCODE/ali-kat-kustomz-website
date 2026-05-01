@@ -11,16 +11,16 @@ services:
   - Soft-Trim Colour Coordination
   - Chrome Trim Restoration Prep
 
-hero: /images/portfolio/placeholder-hero.svg
+hero: /images/portfolio/challenger-plum-crazy-hero.webp
 
 gallery:
-  - src: /images/portfolio/placeholder-gallery-1.svg
+  - src: /images/portfolio/challenger-plum-crazy-gallery-1.webp
     caption: "Full profile — Plum Crazy shifts from purple to magenta in afternoon sun"
-  - src: /images/portfolio/placeholder-gallery-2.svg
+  - src: /images/portfolio/challenger-plum-crazy-gallery-2.webp
     caption: "Roof and B-pillar detail — factory-correct flat-black treatment"
-  - src: /images/portfolio/placeholder-gallery-3.svg
+  - src: /images/portfolio/challenger-plum-crazy-gallery-3.webp
     caption: "Hockey stripe — hand-laid, not vinyl"
-  - src: /images/portfolio/placeholder-gallery-1.svg
+  - src: /images/portfolio/challenger-plum-crazy-gallery-4.webp
     caption: "Rear Bumblebee stripe alignment — 3 mm tolerance across the panel join"
 
 description: >

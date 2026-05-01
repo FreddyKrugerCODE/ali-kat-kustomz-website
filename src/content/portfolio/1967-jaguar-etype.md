@@ -11,17 +11,17 @@ services:
   - Paint Correction
   - Panel Alignment
 
-hero: /images/portfolio/placeholder-hero.svg
-before: /images/portfolio/placeholder-before.svg
+hero: /images/portfolio/etype-brg-hero.webp
+before: /images/portfolio/etype-brg-before.webp
 
 gallery:
-  - src: /images/portfolio/placeholder-gallery-1.svg
+  - src: /images/portfolio/etype-brg-gallery-1.webp
     caption: "Front three-quarter after final polish — note the depth in direct sunlight"
-  - src: /images/portfolio/placeholder-gallery-2.svg
+  - src: /images/portfolio/etype-brg-gallery-2.webp
     caption: "Bonnet centre line — zero-gap panel alignment achieved after strip-down"
-  - src: /images/portfolio/placeholder-gallery-3.svg
+  - src: /images/portfolio/etype-brg-gallery-3.webp
     caption: "Door shuts and inner sills refinished to match"
-  - src: /images/portfolio/placeholder-gallery-1.svg
+  - src: /images/portfolio/etype-brg-gallery-4.webp
     caption: "Rear three-quarter — clear coat depth at 8 microns"
 
 description: >

@@ -11,14 +11,15 @@ services:
   - Brightwork Re-plating Preparation
   - Panel Gap Correction
 
-hero: /images/portfolio/placeholder-hero.svg
+hero: /images/portfolio/db5-silver-birch-hero.webp
+before: /images/portfolio/db5-silver-birch-before.webp
 
 gallery:
-  - src: /images/portfolio/placeholder-gallery-1.svg
+  - src: /images/portfolio/db5-silver-birch-gallery-1.webp
     caption: "Nearside front three-quarter — Silver Birch shifts silver-white in direct sun"
-  - src: /images/portfolio/placeholder-gallery-2.svg
+  - src: /images/portfolio/db5-silver-birch-gallery-2.webp
     caption: "Door shut and sill — the hardest panel to get right on a DB5"
-  - src: /images/portfolio/placeholder-gallery-3.svg
+  - src: /images/portfolio/db5-silver-birch-gallery-3.webp
     caption: "Boot lid showing correct panel crown — no filler in this repair"
 
 description: >
