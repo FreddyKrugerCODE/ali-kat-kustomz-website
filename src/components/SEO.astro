@@ -5,6 +5,7 @@ interface Props {
   image?: string;
   canonicalURL?: string;
   type?: 'website' | 'article';
+  noindex?: boolean;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   image = '/og/og-default.jpg',
   canonicalURL = Astro.url.href,
   type = 'website',
+  noindex = false,
 } = Astro.props;
 
 const SITE_NAME = 'Ali Kat Kustomz';
@@ -69,7 +71,7 @@ const jsonLd = {
 <!-- Primary -->
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
-<meta name="robots" content="index, follow" />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 <link rel="canonical" href={canonical} />
 
 <!-- Open Graph -->

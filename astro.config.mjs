@@ -7,7 +7,7 @@ import mdx from '@astrojs/mdx';
 // instead of via @astrojs/sitemap, which has Astro 4 compatibility issues.
 
 export default defineConfig({
-  site: 'https://alikatkustomz.com', // TODO: replace with real domain before launch
+  site: 'https://alikatkustomz.com',
   integrations: [
     tailwind({ applyBaseStyles: false }),
     mdx(),
