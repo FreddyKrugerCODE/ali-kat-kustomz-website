@@ -98,7 +98,7 @@ const id = `ba-${Math.random().toString(36).slice(2, 8)}`;
 </style>
 
 <script>
-  document.querySelectorAll<HTMLElement>('[id^="ba-"]').forEach((fig) => {
+  document.querySelectorAll<HTMLElement>('figure[id^="ba-"]').forEach((fig) => {
     const panel  = fig.querySelector<HTMLElement>('.before-panel')!;
     const divider = fig.querySelector<HTMLElement>('.divider')!;
     const range  = fig.querySelector<HTMLInputElement>('.ba-range')!;
